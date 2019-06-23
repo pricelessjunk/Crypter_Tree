@@ -1,0 +1,2 @@
+- Replace radio buttons with two seperate search button. This can be done with holding the state in a global variable?
+-
