@@ -37,7 +37,7 @@ private slots:
 private:
     Ui::Widget *ui;
 
-    void load_paths(std::vector<Fullpath> paths, QString root = "");
+    int load_paths(std::vector<Fullpath> paths, QString root = "");
 };
 
 #endif // WIDGET_H

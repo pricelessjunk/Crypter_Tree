@@ -21,8 +21,13 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::load_paths(std::vector<Fullpath> paths, QString root){
+int Widget::load_paths(std::vector<Fullpath> paths, QString root){
     ui->listWidget->clear();
+
+    if(!dir_utils_ptr->DoesDirectoryExist(root)){
+        return 1;
+    }
+
     if(root.compare("")!=0){
         ui->listWidget->addItem(root);
     }
@@ -31,6 +36,8 @@ void Widget::load_paths(std::vector<Fullpath> paths, QString root){
         Fullpath fullpath = (*it);
         ui->listWidget->addItem(dir_utils_ptr->GetAbsolutePath(fullpath));
     }
+
+    return 0;
 }
 
 void Widget::on_encryptDecryptButton_clicked()
@@ -55,17 +62,27 @@ void Widget::on_encryptDecryptButton_clicked()
 void Widget::on_btnEncryptSearch_clicked()
 {
     QString cur_path_str = ui->lineEdit->text();
-    load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
-    current_state = Mode::Encrypt;
-    setStatus("Loaded. In mode Encrypt.");
+    int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
+
+    if(ret_code==0){
+        current_state = Mode::Encrypt;
+        setStatus("Loaded. In mode Encrypt.");
+    }else if(ret_code==1){
+        setStatus("Directory not found.");
+    }
 }
 
 void Widget::on_btnDecryptSearch_clicked()
 {
     QString cur_path_str = ui->lineEdit->text();
-    load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY), cur_path_str);
-    current_state = Mode::Decrypt;
-    setStatus("Loaded. In mode Decrypt.");
+    int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY), cur_path_str);
+
+    if(ret_code==0){
+        current_state = Mode::Decrypt;
+        setStatus("Loaded. In mode Decrypt.");
+    }else if(ret_code==1){
+        setStatus("Directory not found.");
+    }
 }
 
 void Widget::setStatus(QString status){

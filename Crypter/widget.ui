@@ -101,14 +101,33 @@
   <widget class="QLabel" name="lblStatus">
    <property name="geometry">
     <rect>
-     <x>16</x>
+     <x>60</x>
      <y>570</y>
-     <width>911</width>
+     <width>871</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string>Loaded. In mode Encrypt</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::RichText</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblStatus_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>570</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Status: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::RichText</enum>
    </property>
   </widget>
  </widget>
