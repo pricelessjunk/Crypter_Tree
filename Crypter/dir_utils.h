@@ -20,14 +20,13 @@
 
 #include "common.h"
 
-enum Mode {Encrypt, Decrypt};
 
-enum SearchMode {ALL, DIR_ONLY};
 
 class DirUtils {
 
 public:
-    std::vector<Fullpath> GetFiles(Fullpath base, Mode mode, SearchMode searchMode = ALL);
+    std::vector<Fullpath> GetFiles(QString root_path_str, Mode mode, SearchMode searchMode = ALL);
+    std::vector<Fullpath> GetFiles(Fullpath root_path_fp, Mode mode, SearchMode searchMode = ALL);
     QString GetCurrentWorkingDir();
     QString GetAbsolutePath(Fullpath &path);
     Fullpath CreateFullPath(const Fullpath& base, const QString& name, const bool& isDir) const;

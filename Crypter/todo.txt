@@ -1,2 +1,7 @@
-- Replace radio buttons with two seperate search button. This can be done with holding the state in a global variable?
--
+- Create translator for encoded paths
+- Create deep link encrytion
+
+
+- Create a password screen
+- Read from a config file details like password, exception lists
+- Create consle output window

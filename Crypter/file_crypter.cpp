@@ -7,15 +7,11 @@
 #include "file_crypter.h"
 
 void FileCrypter::encryptFile(const char* inFile, const char* outFile, const QString& password) {
-    int retVal =xorOperation(inFile, outFile, password);
-	if (retVal == 0)
-    qDebug() << "Encryption completed";
+    xorOperation(inFile, outFile, password);
 }
 
 void FileCrypter::decryptFile(const char* inFile, const char* outFile, const QString& password) {
-    int retVal = xorOperation(inFile, outFile, password);
-	if (retVal == 0)
-        qDebug() << "Decryption completed";
+    xorOperation(inFile, outFile, password);
 }
 
 int FileCrypter::xorOperation(const char* inFile, const char* outFile, const QString& password) {

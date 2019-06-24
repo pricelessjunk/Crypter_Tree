@@ -20,15 +20,19 @@ class Widget : public QWidget
     std::unique_ptr<DirUtils> dir_utils_ptr;
     std::unique_ptr<Controller> controller_ptr;
     Fullpath cur_dir;
+    Mode current_state;
 
 public:
     explicit Widget(QWidget *parent = nullptr);
     ~Widget();
+    void setStatus(QString status);
 
 private slots:
-    void on_searchButton_clicked();
-
     void on_encryptDecryptButton_clicked();
+
+    void on_btnEncryptSearch_clicked();
+
+    void on_btnDecryptSearch_clicked();
 
 private:
     Ui::Widget *ui;

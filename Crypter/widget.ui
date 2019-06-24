@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>956</width>
-    <height>597</height>
+    <height>598</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>20</y>
+     <y>10</y>
      <width>921</width>
      <height>81</height>
     </rect>
@@ -25,17 +25,17 @@
    <property name="title">
     <string>Directory Options</string>
    </property>
-   <widget class="QPushButton" name="searchButton">
+   <widget class="QPushButton" name="btnEncryptSearch">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>20</y>
-      <width>75</width>
+      <x>700</x>
+      <y>50</y>
+      <width>101</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Search</string>
+     <string>Search to Encrypt</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -43,35 +43,22 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>811</width>
+      <width>901</width>
       <height>20</height>
      </rect>
     </property>
    </widget>
-   <widget class="QRadioButton" name="encryptButton">
+   <widget class="QPushButton" name="btnDecryptSearch">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>810</x>
       <y>50</y>
-      <width>82</width>
-      <height>17</height>
+      <width>101</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Encrypt</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="decryptButton">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>50</y>
-      <width>82</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Decrypt</string>
+     <string>Search to Decrypt</string>
     </property>
    </widget>
   </widget>
@@ -91,16 +78,16 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>10</y>
       <width>901</width>
-      <height>401</height>
+      <height>411</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="encryptDecryptButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>810</x>
       <y>430</y>
       <width>101</width>
       <height>23</height>
@@ -121,7 +108,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Loaded</string>
+    <string>Loaded. In mode Encrypt</string>
    </property>
   </widget>
  </widget>

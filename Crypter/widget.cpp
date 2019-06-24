@@ -12,9 +12,8 @@ Widget::Widget(QWidget *parent) :
     cur_dir = dir_utils_ptr->CreateRootFullPath(cur_path);
 
     ui->lineEdit->setText(dir_utils_ptr->GetAbsolutePath(cur_dir));
-    ui->encryptButton->setChecked(true);
-
     load_paths(dir_utils_ptr->GetFiles(cur_dir, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path);
+    current_state = Mode::Encrypt;
 }
 
 Widget::~Widget()
@@ -34,18 +33,6 @@ void Widget::load_paths(std::vector<Fullpath> paths, QString root){
     }
 }
 
-void Widget::on_searchButton_clicked()
-{
-    QString cur_dir = ui->lineEdit->text();
-    Fullpath cur_path =dir_utils_ptr->CreateRootFullPath(cur_dir);
-
-    if(ui->encryptButton->isChecked()){
-        load_paths(dir_utils_ptr->GetFiles(cur_path, Mode::Encrypt, SearchMode::DIR_ONLY), cur_dir);
-    }else if (ui->decryptButton) {
-        load_paths(dir_utils_ptr->GetFiles(cur_path, Mode::Decrypt, SearchMode::DIR_ONLY), cur_dir);
-    }
-}
-
 void Widget::on_encryptDecryptButton_clicked()
 {
     if(ui->listWidget->selectedItems().size()==0){
@@ -54,17 +41,34 @@ void Widget::on_encryptDecryptButton_clicked()
 
     QString selected = ui->listWidget->selectedItems().front()->text();
 
-    if(ui->encryptButton->isChecked()){
-        ui->lblStatus->setText("Encrypting...");
-        qApp->processEvents();
+    if(current_state == Mode::Encrypt){
+        setStatus("Encrypting...");
         controller_ptr->encrypt(selected, PWD);
-        ui->lblStatus->setText("Encryption Completed.");
-        qApp->processEvents();
-    }else if (ui->decryptButton->isChecked()) {
-        ui->lblStatus->setText("Decrypting...");
-        //qApp->processEvents();
+        setStatus("Encryption Completed.");
+    }else if (current_state == Mode::Decrypt) {
+        setStatus("Decrypting...");
         controller_ptr->decrypt(selected, PWD);
-        ui->lblStatus->setText("Decryption Completed.");
-        //qApp->processEvents();
+        setStatus("Decryption Completed.");
     }
+}
+
+void Widget::on_btnEncryptSearch_clicked()
+{
+    QString cur_path_str = ui->lineEdit->text();
+    load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
+    current_state = Mode::Encrypt;
+    setStatus("Loaded. In mode Encrypt.");
+}
+
+void Widget::on_btnDecryptSearch_clicked()
+{
+    QString cur_path_str = ui->lineEdit->text();
+    load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY), cur_path_str);
+    current_state = Mode::Decrypt;
+    setStatus("Loaded. In mode Decrypt.");
+}
+
+void Widget::setStatus(QString status){
+    ui->lblStatus->setText(status);
+    qApp->processEvents();
 }

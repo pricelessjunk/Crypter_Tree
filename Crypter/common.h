@@ -9,14 +9,12 @@
 const QString SUFFIX_ENC = "_enc";
 const QString PWD = "koosi";
 
+enum Mode {Encrypt, Decrypt};
+enum SearchMode {ALL, DIR_ONLY};
+
 struct Fullpath {
     std::vector<QString> elements;
     bool isDir;
 };
-
-//void print(std::string input){
-//    std::cout << input << std::endl;
-//}
-
 
 #endif // COMMON_H

@@ -7,9 +7,14 @@
 
 #include "dir_utils.h"
 
-std::vector<Fullpath> DirUtils::GetFiles(Fullpath root_path, Mode mode, SearchMode searchMode) {
+std::vector<Fullpath> DirUtils::GetFiles(QString root_path_str, Mode mode, SearchMode searchMode) {
+    Fullpath root_path_fp = CreateRootFullPath(root_path_str);
+    return GetFiles(root_path_fp, mode, searchMode);
+}
+
+std::vector<Fullpath> DirUtils::GetFiles(Fullpath root_path_fp, Mode mode, SearchMode searchMode) {
     std::vector<Fullpath> files;
-    QString root = GetAbsolutePath(root_path);
+    QString root = GetAbsolutePath(root_path_fp);
 
     //qDebug() << "processing: " << root;
 
@@ -39,7 +44,7 @@ std::vector<Fullpath> DirUtils::GetFiles(Fullpath root_path, Mode mode, SearchMo
                 if( s.st_mode & S_IFDIR )
                 {
                     if (name.compare(".") != 0 && name.compare("..") != 0) {
-                        Fullpath path = CreateFullPath(root_path, name, true);
+                        Fullpath path = CreateFullPath(root_path_fp, name, true);
                         files.push_back(path);
                         //qDebug() << "\tAdded :" << abs_path;
 
@@ -49,7 +54,7 @@ std::vector<Fullpath> DirUtils::GetFiles(Fullpath root_path, Mode mode, SearchMo
                 }
                 //When it is a file
                 else if( (s.st_mode & S_IFREG) && searchMode==ALL){
-                    Fullpath file_path = CreateFullPath(root_path, name, false);
+                    Fullpath file_path = CreateFullPath(root_path_fp, name, false);
                     files.push_back(file_path);
                      //qDebug() << "\tAdded :" << abs_path;
                 }
