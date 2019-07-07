@@ -28,13 +28,14 @@ public:
     std::vector<Fullpath> GetFiles(QString root_path_str, Mode mode, SearchMode searchMode = ALL);
     std::vector<Fullpath> GetFiles(Fullpath root_path_fp, Mode mode, SearchMode searchMode = ALL);
     QString GetCurrentWorkingDir();
-    QString GetAbsolutePath(Fullpath &path);
-    Fullpath CreateFullPath(const Fullpath& base, const QString& name, const bool& isDir) const;
+    QString GetAbsolutePath(const Fullpath &path);
+    Fullpath AddDeepLinkToFP(const Fullpath& base, const QString& name, const bool& isDir) const;
     Fullpath CreateRootFullPath(const QString& base) const;
-    void CreateDirectory(const QString& name) const;
+    void CheckAndCreateDirectory(const Fullpath& name);
     bool DoesDirectoryExist(const QString& name) const;
 private:
     bool FilterFilesWithExtensions(const QString &mainStr, const std::vector<QString>& exceptionList) const;
+    QString GetAbsolutePath(const Fullpath &path, vector_qstring_size_t index);
 };
 
 #endif /* DIRUTIL_H_ */

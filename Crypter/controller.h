@@ -7,11 +7,13 @@
 #include "file_crypter.h"
 #include "common.h"
 
+Fullpath getFullPath(const DirUtils& dirUtils, const QString& root, const QString& deeperPath);
+
 class Controller
 {
 public:
-    void encrypt(const QString& root,const QString& password);
-    void decrypt(const QString& root,const QString& password);
+    void encrypt(const QString& password, const QString& root, const QString& deepLink);
+    void decrypt(const QString& password, const QString& root, const QString& deepLink);
 };
 
 #endif // CONTROLLER_H

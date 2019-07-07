@@ -7,23 +7,22 @@
 
 #include "dir_utils.h"
 
-std::vector<Fullpath> DirUtils::GetFiles(QString root_path_str, Mode mode, SearchMode searchMode) {
-    Fullpath root_path_fp = CreateRootFullPath(root_path_str);
-    return GetFiles(root_path_fp, mode, searchMode);
+std::vector<Fullpath> DirUtils::GetFiles(QString rootPath_str, Mode mode, SearchMode searchMode) {
+    Fullpath rootPath_fp = CreateRootFullPath(rootPath_str);
+    return GetFiles(rootPath_fp, mode, searchMode);
 }
 
-std::vector<Fullpath> DirUtils::GetFiles(Fullpath root_path_fp, Mode mode, SearchMode searchMode) {
+std::vector<Fullpath> DirUtils::GetFiles(Fullpath rootPath_fp, Mode mode, SearchMode searchMode) {
     std::vector<Fullpath> files;
-    QString root = GetAbsolutePath(root_path_fp);
-
-    //qDebug() << "processing: " << root;
+    QString root = GetAbsolutePath(rootPath_fp);
 
     DIR *dir;
     struct dirent *ent;
+    qDebug() << "Processing: " << root;
     if ((dir = opendir(root.toLatin1().data())) != NULL) {
         while ((ent = readdir(dir)) != NULL) {
-            char* c_name = ent->d_name;
-            QString name(c_name);
+            char* name_c = ent->d_name;
+            QString name(name_c);
 
             if((mode==Encrypt && name.endsWith(SUFFIX_ENC))||(mode==Decrypt && !name.endsWith(SUFFIX_ENC))) {
                 continue;
@@ -44,22 +43,21 @@ std::vector<Fullpath> DirUtils::GetFiles(Fullpath root_path_fp, Mode mode, Searc
                 if( s.st_mode & S_IFDIR )
                 {
                     if (name.compare(".") != 0 && name.compare("..") != 0) {
-                        Fullpath path = CreateFullPath(root_path_fp, name, true);
-                        files.push_back(path);
+                        Fullpath path_fp = AddDeepLinkToFP(rootPath_fp, name, true);
+                        files.push_back(path_fp);
                         //qDebug() << "\tAdded :" << abs_path;
 
-                        std::vector<Fullpath> temp_files = GetFiles(path, mode, searchMode);
+                        std::vector<Fullpath> temp_files = GetFiles(path_fp, mode, searchMode);
                         files.insert(files.end(), temp_files.begin(), temp_files.end());
                     }
                 }
                 //When it is a file
                 else if( (s.st_mode & S_IFREG) && searchMode==ALL){
-                    Fullpath file_path = CreateFullPath(root_path_fp, name, false);
+                    Fullpath file_path = AddDeepLinkToFP(rootPath_fp, name, false);
                     files.push_back(file_path);
-                     //qDebug() << "\tAdded :" << abs_path;
                 }
                 else{
-                     qDebug()<<name<<": no idea what it is";
+                    //qDebug()<<name<<": no idea what it is";
                 }
             }else{
                  qDebug()<<"Error at "<<name<<".Error " <<strerror(errno);
@@ -80,12 +78,17 @@ QString DirUtils::GetCurrentWorkingDir() {
     return current_working_dir;
 }
 
-QString DirUtils::GetAbsolutePath(Fullpath& path) {
+QString DirUtils::GetAbsolutePath(const Fullpath& path) {
+    // Sending -1 to keep compatibility with index to which it should parse.
+    return GetAbsolutePath(path, path.elements.size());
+}
+
+QString DirUtils::GetAbsolutePath(const Fullpath& path, vector_qstring_size_t index) {
     QString output("");
 
-    for (vector_qstring_size_t i=0;i<path.elements.size();i++) {
+    for (vector_qstring_size_t i=0; i < index; i++) {
         output+=path.elements[i];
-        if(i != path.elements.size() - 1){
+        if(i != index - 1){
             output+="\\";
         }
     }
@@ -109,17 +112,25 @@ Fullpath DirUtils::CreateRootFullPath(const QString& base) const{
     return path;
 }
 
-Fullpath DirUtils::CreateFullPath(const Fullpath& base, const QString& name, const bool& isDir) const{
+Fullpath DirUtils::AddDeepLinkToFP(const Fullpath& base, const QString& deepLink, const bool& isDir) const{
     Fullpath path;
     path.isDir = isDir;
     path.elements.insert(path.elements.end(), base.elements.begin(), base.elements.end());
-    path.elements.push_back(name);
+
+    QStringList splits = deepLink.split( "\\");
+    path.elements.insert(path.elements.end(), splits.begin(), splits.end());
+
     return path;
 }
 
-void DirUtils::CreateDirectory(const QString& name) const{
-    if (mkdir(name.toLatin1().data()) != 0){
-        qDebug() << "Directory already exists";
+void DirUtils::CheckAndCreateDirectory(const Fullpath& fullPath){
+    vector_qstring_size_t ignoreFileName = fullPath.isDir? 0: 1;
+
+    for (vector_qstring_size_t i=1; i< fullPath.elements.size() - ignoreFileName; i++) {
+        QString name = GetAbsolutePath(fullPath, static_cast<vector_qstring_size_t>(i + 1));  // +1 To keep compatibility with size
+        if (mkdir(name.toLatin1().data()) != 0){
+            qDebug() << "An error occured during creating the directory" << name;
+        }
     }
 }
 

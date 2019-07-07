@@ -7,45 +7,49 @@
 
 #include "path_crypter.h"
 
-QString PathCrypter::GetEncodedPath(Fullpath &path, const QString &password){
-    QString abs_path = path.elements[0];
+Fullpath PathCrypter::GetEncodedPath(Fullpath &path, const QString &password){
+    Fullpath encodedPath;
+    encodedPath.elements.push_back(path.elements[0]);
+    encodedPath.isDir = path.isDir;
 
     for (std::vector<QString>::size_type i=1;i<path.elements.size();i++) {
         QString path_var = path.elements[i];
 
         if( cache.find(path_var) != cache.end()) {
-            abs_path.append("\\").append(cache[path_var]);
+            encodedPath.elements.push_back(cache[path_var]);
             continue;
         }
 
-        QString encoded_string =  EncodeString(path_var, password).append(SUFFIX_ENC);
-        abs_path.append("\\").append(encoded_string);
-        cache[path_var]=encoded_string;
+        QString encoded_str =  EncodeString(path_var, password).append(SUFFIX_ENC);
+        encodedPath.elements.push_back(encoded_str);
+        cache[path_var]=encoded_str;
     }
 
-    return abs_path;
+    return encodedPath;
 }
 
-QString PathCrypter::GetDecodedPath(Fullpath &path, const QString &password){
-    QString abs_path = path.elements[0];
+Fullpath PathCrypter::GetDecodedPath(Fullpath &path, const QString &password){
+    Fullpath decodedPath;
+    decodedPath.elements.push_back(path.elements[0]);
+    decodedPath.isDir = path.isDir;
 
     for (std::vector<QString>::size_type i=1;i<path.elements.size();i++) {
         QString path_var = path.elements[i];
 
         if( cache.find(path_var) != cache.end()) {
-            abs_path.append("\\").append(cache[path_var]);
+            decodedPath.elements.push_back(cache[path_var]);
             continue;
         }
 
         //It is expected to be always present
         QString::size_type loc = path_var.indexOf(SUFFIX_ENC, 0 );
         QString path_ele_wo_suffix = path_var.left(loc);
-        QString decoded_string =  DecodeString(path_ele_wo_suffix, password);
-        abs_path.append("\\").append(decoded_string);
-        cache[path_var]=decoded_string;
+        QString decoded_str =  DecodeString(path_ele_wo_suffix, password);
+        decodedPath.elements.push_back(decoded_str);
+        cache[path_var]=decoded_str;
     }
 
-    return abs_path;
+    return decodedPath;
 }
 
 

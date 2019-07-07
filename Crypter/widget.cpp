@@ -11,7 +11,7 @@ Widget::Widget(QWidget *parent) :
     QString cur_path = "D:\\User\\Desktop\\test"; //dir_utils_ptr->GetCurrentWorkingDir()
     cur_dir = dir_utils_ptr->CreateRootFullPath(cur_path);
 
-    ui->lineEdit->setText(dir_utils_ptr->GetAbsolutePath(cur_dir));
+    ui->searchBoxLineEdit->setText(dir_utils_ptr->GetAbsolutePath(cur_dir));
     load_paths(dir_utils_ptr->GetFiles(cur_dir, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path);
     current_state = Mode::Encrypt;
 }
@@ -47,21 +47,28 @@ void Widget::on_encryptDecryptButton_clicked()
     }
 
     QString selected = ui->listWidget->selectedItems().front()->text();
+    QString base = ui->searchBoxLineEdit->text();
+    QString deepLink  = "";
+
+    // Change to QFileInfo later
+    if(selected != base){
+        deepLink = selected.right(selected.length() - base.length() - 1);
+    }
 
     if(current_state == Mode::Encrypt){
         setStatus("Encrypting...");
-        controller_ptr->encrypt(selected, PWD);
+        controller_ptr->encrypt(PWD, base, deepLink);
         setStatus("Encryption Completed.");
     }else if (current_state == Mode::Decrypt) {
         setStatus("Decrypting...");
-        controller_ptr->decrypt(selected, PWD);
+        controller_ptr->decrypt(PWD, base, deepLink);
         setStatus("Decryption Completed.");
     }
 }
 
 void Widget::on_btnEncryptSearch_clicked()
 {
-    QString cur_path_str = ui->lineEdit->text();
+    QString cur_path_str = ui->searchBoxLineEdit->text();
     int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
 
     if(ret_code==0){
@@ -74,7 +81,7 @@ void Widget::on_btnEncryptSearch_clicked()
 
 void Widget::on_btnDecryptSearch_clicked()
 {
-    QString cur_path_str = ui->lineEdit->text();
+    QString cur_path_str = ui->searchBoxLineEdit->text();
     int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY), cur_path_str);
 
     if(ret_code==0){

@@ -15,8 +15,8 @@
 
 class PathCrypter {
 public:
-    QString GetEncodedPath(Fullpath &path, const QString &password);
-    QString GetDecodedPath(Fullpath &path, const QString &password);
+    Fullpath GetEncodedPath(Fullpath &path, const QString &password);
+    Fullpath GetDecodedPath(Fullpath &path, const QString &password);
     QString EncodeString(const QString &input, const QString &password);
     QString DecodeString(const QString &input, const QString &password);
 private:

@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="SearchGroupBox">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -38,7 +38,7 @@
      <string>Search to Encrypt</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="searchBoxLineEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -62,7 +62,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="groupBox_2">
+  <widget class="QGroupBox" name="ResultsGroupBox">
    <property name="geometry">
     <rect>
      <x>10</x>
