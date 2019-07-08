@@ -6,6 +6,7 @@
 
 #include <QWidget>
 #include <QtWidgets/QListWidget>
+#include <QMovie>
 
 #include "dir_utils.h"
 #include "controller.h"
@@ -21,6 +22,7 @@ class Widget : public QWidget
     std::unique_ptr<Controller> controller_ptr;
     Fullpath cur_dir;
     Mode current_state;
+    std::unique_ptr<QMovie> qmovie_ptr = std::unique_ptr<QMovie>(new QMovie(":/ajax-loader.gif"));
 
 public:
     explicit Widget(QWidget *parent = nullptr);
@@ -38,6 +40,8 @@ private:
     Ui::Widget *ui;
 
     int load_paths(std::vector<Fullpath> paths, QString root = "");
+
+    void showLoadingAnimation(bool loading);
 };
 
 #endif // WIDGET_H

@@ -14,6 +14,10 @@ Widget::Widget(QWidget *parent) :
     ui->searchBoxLineEdit->setText(dir_utils_ptr->GetAbsolutePath(cur_dir));
     load_paths(dir_utils_ptr->GetFiles(cur_dir, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path);
     current_state = Mode::Encrypt;
+
+    ui->lblProcess->setMovie(qmovie_ptr.get());
+    qmovie_ptr->start();
+    ui->lblProcess->setVisible(false);
 }
 
 Widget::~Widget()
@@ -46,6 +50,7 @@ void Widget::on_encryptDecryptButton_clicked()
         return;
     }
 
+    showLoadingAnimation(true);
     QString selected = ui->listWidget->selectedItems().front()->text();
     QString base = ui->searchBoxLineEdit->text();
     QString deepLink  = "";
@@ -64,10 +69,12 @@ void Widget::on_encryptDecryptButton_clicked()
         controller_ptr->decrypt(PWD, base, deepLink);
         setStatus("Decryption Completed.");
     }
+    showLoadingAnimation(false);
 }
 
 void Widget::on_btnEncryptSearch_clicked()
 {
+    showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
     int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
 
@@ -77,10 +84,12 @@ void Widget::on_btnEncryptSearch_clicked()
     }else if(ret_code==1){
         setStatus("Directory not found.");
     }
+    showLoadingAnimation(false);
 }
 
 void Widget::on_btnDecryptSearch_clicked()
 {
+    showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
     int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY), cur_path_str);
 
@@ -90,9 +99,14 @@ void Widget::on_btnDecryptSearch_clicked()
     }else if(ret_code==1){
         setStatus("Directory not found.");
     }
+    showLoadingAnimation(false);
 }
 
 void Widget::setStatus(QString status){
     ui->lblStatus->setText(status);
     qApp->processEvents();
+}
+
+void Widget::showLoadingAnimation(bool loading){
+    ui->lblProcess->setVisible(loading);
 }

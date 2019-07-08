@@ -55,3 +55,6 @@ SUBDIRS += \
 DISTFILES += \
     Crypter.pri \
     todo.txt
+
+RESOURCES += \
+    resources.qrc
