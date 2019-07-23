@@ -7,6 +7,8 @@
 #define vector_qstring_size_t std::vector<QString>::size_type
 
 const QString SUFFIX_ENC = "_enc";
+//const QString SEPERATOR = "\\";
+const QString SEPERATOR = "/";
 const QString PWD = "koosi";
 
 enum Mode {Encrypt, Decrypt};

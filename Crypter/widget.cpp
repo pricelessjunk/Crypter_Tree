@@ -8,7 +8,8 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     dir_utils_ptr = std::unique_ptr<DirUtils>(new DirUtils());
     controller_ptr = std::unique_ptr<Controller>(new Controller());
-    QString cur_path = "D:\\User\\Desktop\\test"; //dir_utils_ptr->GetCurrentWorkingDir()
+    //QString cur_path = "D:\\User\\Desktop\\test"; //dir_utils_ptr->GetCurrentWorkingDir()
+    QString cur_path = "/home/vedicmonk/test"; //dir_utils_ptr->GetCurrentWorkingDir()
     cur_dir = dir_utils_ptr->CreateRootFullPath(cur_path);
 
     ui->searchBoxLineEdit->setText(dir_utils_ptr->GetAbsolutePath(cur_dir));

@@ -12,11 +12,11 @@
 #include <dirent.h> // For DIR
 #include <sys/stat.h>
 
-#include <direct.h>
-#define GetCurrentDir _getcwd
+//#include <direct.h>
+//#define GetCurrentDir _getcwd
 //For Unix
-//#include <unistd.h>
-//#define GetCurrentDir getcwd
+#include <unistd.h>
+#define GetCurrentDir getcwd
 
 #include "common.h"
 

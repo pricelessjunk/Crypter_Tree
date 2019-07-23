@@ -34,7 +34,7 @@ std::vector<Fullpath> DirUtils::GetFiles(Fullpath rootPath_fp, Mode mode, Search
                 continue;
             }
 
-            QString abs_path = root + "\\" + name;
+            QString abs_path = root + SEPERATOR + name;
 
             struct stat s;
             if( stat(abs_path.toLatin1().data(),&s) == 0 )
@@ -89,7 +89,7 @@ QString DirUtils::GetAbsolutePath(const Fullpath& path, vector_qstring_size_t in
     for (vector_qstring_size_t i=0; i < index; i++) {
         output+=path.elements[i];
         if(i != index - 1){
-            output+="\\";
+            output+=SEPERATOR;
         }
     }
     return output;
@@ -117,7 +117,7 @@ Fullpath DirUtils::AddDeepLinkToFP(const Fullpath& base, const QString& deepLink
     path.isDir = isDir;
     path.elements.insert(path.elements.end(), base.elements.begin(), base.elements.end());
 
-    QStringList splits = deepLink.split( "\\");
+    QStringList splits = deepLink.split(SEPERATOR);
     path.elements.insert(path.elements.end(), splits.begin(), splits.end());
 
     return path;
@@ -128,7 +128,8 @@ void DirUtils::CheckAndCreateDirectory(const Fullpath& fullPath){
 
     for (vector_qstring_size_t i=1; i< fullPath.elements.size() - ignoreFileName; i++) {
         QString name = GetAbsolutePath(fullPath, static_cast<vector_qstring_size_t>(i + 1));  // +1 To keep compatibility with size
-        if (mkdir(name.toLatin1().data()) != 0){
+        //if (mkdir(name.toLatin1().data()) != 0){
+        if (mkdir(name.toLatin1().data(), S_IRWXU|S_IRGRP|S_IXGRP |S_IROTH|S_IXOTH) != 0){
             qDebug() << "An error occured during creating the directory" << name;
         }
     }
