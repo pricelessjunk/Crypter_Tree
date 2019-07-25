@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>956</width>
-    <height>598</height>
+    <height>625</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
+     <y>0</y>
      <width>921</width>
-     <height>81</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="title">
@@ -28,9 +28,9 @@
    <widget class="QPushButton" name="btnEncryptSearch">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>50</y>
-      <width>101</width>
+      <x>670</x>
+      <y>60</y>
+      <width>121</width>
       <height>23</height>
      </rect>
     </property>
@@ -42,7 +42,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>30</y>
       <width>901</width>
       <height>20</height>
      </rect>
@@ -51,9 +51,9 @@
    <widget class="QPushButton" name="btnDecryptSearch">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>50</y>
-      <width>101</width>
+      <x>800</x>
+      <y>60</y>
+      <width>111</width>
       <height>23</height>
      </rect>
     </property>
@@ -68,7 +68,7 @@
      <x>10</x>
      <y>100</y>
      <width>921</width>
-     <height>461</height>
+     <height>481</height>
     </rect>
    </property>
    <property name="title">
@@ -78,8 +78,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>901</width>
+      <y>30</y>
+      <width>501</width>
       <height>411</height>
      </rect>
     </property>
@@ -87,9 +87,9 @@
    <widget class="QPushButton" name="encryptDecryptButton">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>430</y>
-      <width>101</width>
+      <x>800</x>
+      <y>450</y>
+      <width>111</width>
       <height>23</height>
      </rect>
     </property>
@@ -97,12 +97,22 @@
      <string>Encrypt/Decrypt</string>
     </property>
    </widget>
+   <widget class="QListWidget" name="listWidget_decoded">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>30</y>
+      <width>381</width>
+      <height>411</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QLabel" name="lblStatus">
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>570</y>
+     <y>590</y>
      <width>871</width>
      <height>20</height>
     </rect>
@@ -118,7 +128,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>570</y>
+     <y>590</y>
      <width>41</width>
      <height>20</height>
     </rect>
@@ -134,7 +144,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>570</y>
+     <y>590</y>
      <width>16</width>
      <height>21</height>
     </rect>

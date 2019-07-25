@@ -20,6 +20,7 @@ class Widget : public QWidget
     Q_OBJECT
     std::unique_ptr<DirUtils> dir_utils_ptr;
     std::unique_ptr<Controller> controller_ptr;
+    std::unique_ptr<PathCrypter> path_crypter_ptr;
     Fullpath cur_dir;
     Mode current_state;
     std::unique_ptr<QMovie> qmovie_ptr = std::unique_ptr<QMovie>(new QMovie(":/ajax-loader.gif"));
@@ -40,6 +41,8 @@ private:
     Ui::Widget *ui;
 
     int load_paths(std::vector<Fullpath> paths, QString root = "");
+
+    int load_translations(std::vector<Fullpath>& paths, QString& root);
 
     void showLoadingAnimation(bool loading);
 };

@@ -8,6 +8,7 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     dir_utils_ptr = std::unique_ptr<DirUtils>(new DirUtils());
     controller_ptr = std::unique_ptr<Controller>(new Controller());
+    path_crypter_ptr = std::unique_ptr<PathCrypter>(new PathCrypter());
     //QString cur_path = "D:\\User\\Desktop\\test"; //dir_utils_ptr->GetCurrentWorkingDir()
     QString cur_path = "/home/vedicmonk/test"; //dir_utils_ptr->GetCurrentWorkingDir()
     cur_dir = dir_utils_ptr->CreateRootFullPath(cur_path);
@@ -37,9 +38,25 @@ int Widget::load_paths(std::vector<Fullpath> paths, QString root){
         ui->listWidget->addItem(root);
     }
 
-    for(std::vector<Fullpath>::iterator it = paths.begin(); it!= paths.end(); it++){
+    for(std::vector<Fullpath>::iterator it = paths.begin(); it!= paths.end(); ++it){
         Fullpath fullpath = (*it);
         ui->listWidget->addItem(dir_utils_ptr->GetAbsolutePath(fullpath));
+    }
+
+    return 0;
+}
+
+int Widget::load_translations(std::vector<Fullpath>& paths, QString& root){
+
+    if(root.compare("")!=0){
+        ui->listWidget_decoded->addItem(root);
+    }
+
+    for(std::vector<Fullpath>::iterator it = paths.begin(); it!= paths.end(); it++){
+        Fullpath fullpath = (*it);
+        Fullpath decodedPath = path_crypter_ptr->GetDecodedPath(fullpath, PWD);
+        ui->listWidget_decoded->addItem(dir_utils_ptr->GetAbsolutePath(decodedPath));
+
     }
 
     return 0;
@@ -77,6 +94,8 @@ void Widget::on_btnEncryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
+    ui->listWidget_decoded->clear();
+
     int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
 
     if(ret_code==0){
@@ -92,14 +111,19 @@ void Widget::on_btnDecryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
-    int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY), cur_path_str);
+    ui->listWidget_decoded->clear();
+
+    std::vector<Fullpath> foundFiles = dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY);
+    int ret_code = load_paths(foundFiles, cur_path_str);
 
     if(ret_code==0){
         current_state = Mode::Decrypt;
+        load_translations(foundFiles, cur_path_str);
         setStatus("Loaded. In mode Decrypt.");
     }else if(ret_code==1){
         setStatus("Directory not found.");
     }
+
     showLoadingAnimation(false);
 }
 
