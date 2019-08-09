@@ -28,6 +28,7 @@ SOURCES += \
         controller.cpp \
         dir_utils.cpp \
         file_crypter.cpp \
+        login.cpp \
         main.cpp \
         path_crypter.cpp \
         widget.cpp
@@ -37,10 +38,12 @@ HEADERS += \
         controller.h \
         dir_utils.h \
         file_crypter.h \
+        login.h \
         path_crypter.h \
         widget.h
 
 FORMS += \
+        login.ui \
         widget.ui
 
 # Default rules for deployment.
