@@ -1,4 +1,6 @@
-- Create a password screen
+- Generate password
+- read password
+- store password
 - Read from a config file details like password, exception lists
 
 - Create consle output window

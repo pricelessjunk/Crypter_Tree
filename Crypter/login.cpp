@@ -6,6 +6,7 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+    string_crypter_ptr = std::unique_ptr<PathCrypter>(new PathCrypter());
 }
 
 Login::~Login()
@@ -15,6 +16,16 @@ Login::~Login()
 
 void Login::on_btnOk_clicked()
 {
+    if(ui->lePassInput->text().compare("koosi")!=0){
+        return;
+    }
+
     Widget* w = new Widget(this);
     w->show();
+}
+
+void Login::on_btnGenerate_clicked()
+{
+    QString output = string_crypter_ptr ->EncodeString(ui->genPassInputLineEdit->text(), "koosi");
+    ui->leGenPassOutput->setText(output);
 }

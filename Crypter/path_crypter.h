@@ -5,8 +5,8 @@
  *      Author: fenris
  */
 
-#ifndef STRINGCRYPTER_H_
-#define STRINGCRYPTER_H_
+#ifndef PATHCRYPTER_H_
+#define PATHCRYPTER_H_
 
 #include <ctype.h>
 #include <map>
@@ -30,4 +30,4 @@ private:
     int GetPrelistIndex(char prelist_value);
 };
 
-#endif /* STRINGCRYPTER_H_ */
+#endif /* PATHCRYPTER_H_ */
