@@ -1,7 +1,11 @@
-- Generate password
-- read password
-- store password
-- Read from a config file details like password, exception lists
+- hide login page after login, try this->hide()
+- mask password fields
+- add labels to show status in login page (Wrong password)
+- change default pass for passencryption to byte string and also change it to something different than koosi
+- read password from yaml file
+- store password in yaml file
+- change password (Should re-encrypt everything)
+- Read from a config file exception lists
 
 - Create consle output window
 - Seperate encryption algorithm into another thread.
