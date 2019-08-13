@@ -25,26 +25,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        activitypage.cpp \
         controller.cpp \
         dir_utils.cpp \
         file_crypter.cpp \
         login.cpp \
         main.cpp \
-        path_crypter.cpp \
-        widget.cpp
+        path_crypter.cpp
 
 HEADERS += \
+        activitypage.h \
         common.h \
         controller.h \
         dir_utils.h \
         file_crypter.h \
         login.h \
-        path_crypter.h \
-        widget.h
+        path_crypter.h
 
 FORMS += \
-        login.ui \
-        widget.ui
+        activitypage.ui \
+        login.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

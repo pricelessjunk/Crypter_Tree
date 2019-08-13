@@ -1,9 +1,9 @@
-#include "widget.h"
-#include "ui_widget.h"
+#include "activitypage.h"
+#include "ui_activitypage.h"
 
-Widget::Widget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Widget)
+ActivityPage::ActivityPage(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::ActivityPage)
 {
     ui->setupUi(this);
     dir_utils_ptr = std::unique_ptr<DirUtils>(new DirUtils());
@@ -22,12 +22,12 @@ Widget::Widget(QWidget *parent) :
     ui->lblProcess->setVisible(false);
 }
 
-Widget::~Widget()
+ActivityPage::~ActivityPage()
 {
     delete ui;
 }
 
-int Widget::load_paths(std::vector<Fullpath> paths, QString root){
+int ActivityPage::load_paths(std::vector<Fullpath> paths, QString root){
     ui->listWidget->clear();
 
     if(!dir_utils_ptr->DoesDirectoryExist(root)){
@@ -46,7 +46,7 @@ int Widget::load_paths(std::vector<Fullpath> paths, QString root){
     return 0;
 }
 
-int Widget::load_translations(std::vector<Fullpath>& paths, QString& root){
+int ActivityPage::load_translations(std::vector<Fullpath>& paths, QString& root){
 
     if(root.compare("")!=0){
         ui->listWidget_decoded->addItem(root);
@@ -62,7 +62,7 @@ int Widget::load_translations(std::vector<Fullpath>& paths, QString& root){
     return 0;
 }
 
-void Widget::on_encryptDecryptButton_clicked()
+void ActivityPage::on_encryptDecryptButton_clicked()
 {
     if(ui->listWidget->selectedItems().size()==0){
         return;
@@ -90,7 +90,7 @@ void Widget::on_encryptDecryptButton_clicked()
     showLoadingAnimation(false);
 }
 
-void Widget::on_btnEncryptSearch_clicked()
+void ActivityPage::on_btnEncryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
@@ -107,7 +107,7 @@ void Widget::on_btnEncryptSearch_clicked()
     showLoadingAnimation(false);
 }
 
-void Widget::on_btnDecryptSearch_clicked()
+void ActivityPage::on_btnDecryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
@@ -127,11 +127,12 @@ void Widget::on_btnDecryptSearch_clicked()
     showLoadingAnimation(false);
 }
 
-void Widget::setStatus(QString status){
+void ActivityPage::setStatus(QString status){
     ui->lblStatus->setText(status);
     qApp->processEvents();
 }
 
-void Widget::showLoadingAnimation(bool loading){
+void ActivityPage::showLoadingAnimation(bool loading){
     ui->lblProcess->setVisible(loading);
 }
+

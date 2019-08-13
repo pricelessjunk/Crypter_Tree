@@ -1,7 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 
-Login::Login(QWidget *parent) :
+Login::Login(QDialog *parent) :
     QDialog(parent),
     ui(new Ui::Login)
 {
@@ -20,8 +20,10 @@ void Login::on_btnOk_clicked()
         return;
     }
 
-    Widget* w = new Widget(this);
-    w->show();
+    ActivityPage* ap = new ActivityPage(this);
+    this->hide();
+    ap->setModal(true);
+    ap->show();
 }
 
 void Login::on_btnGenerate_clicked()

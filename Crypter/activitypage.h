@@ -1,10 +1,10 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef ACTIVITYPAGE_H
+#define ACTIVITYPAGE_H
 
+#include <QDialog>
 #include <iostream>
 #include <memory>
 
-#include <QWidget>
 #include <QtWidgets/QListWidget>
 #include <QMovie>
 
@@ -12,10 +12,10 @@
 #include "controller.h"
 
 namespace Ui {
-class Widget;
+class ActivityPage;
 }
 
-class Widget : public QWidget
+class ActivityPage : public QDialog
 {
     Q_OBJECT
     std::unique_ptr<DirUtils> dir_utils_ptr;
@@ -26,8 +26,8 @@ class Widget : public QWidget
     std::unique_ptr<QMovie> qmovie_ptr = std::unique_ptr<QMovie>(new QMovie(":/ajax-loader.gif"));
 
 public:
-    explicit Widget(QWidget *parent = nullptr);
-    ~Widget();
+    explicit ActivityPage(QWidget *parent = nullptr);
+    ~ActivityPage();
     void setStatus(QString status);
 
 private slots:
@@ -38,13 +38,14 @@ private slots:
     void on_btnDecryptSearch_clicked();
 
 private:
-    Ui::Widget *ui;
+    Ui::ActivityPage *ui;
 
     int load_paths(std::vector<Fullpath> paths, QString root = "");
 
     int load_translations(std::vector<Fullpath>& paths, QString& root);
 
     void showLoadingAnimation(bool loading);
+
 };
 
-#endif // WIDGET_H
+#endif // ACTIVITYPAGE_H

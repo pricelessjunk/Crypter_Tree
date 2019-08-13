@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "common.h"
-#include "widget.h"
+#include "activitypage.h"
 
 namespace Ui {
 class Login;
@@ -15,7 +15,7 @@ class Login : public QDialog
     std::unique_ptr<PathCrypter> string_crypter_ptr;
 
 public:
-    explicit Login(QWidget *parent = nullptr);
+    explicit Login(QDialog *parent = nullptr);
     ~Login();
 
 private slots:
