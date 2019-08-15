@@ -221,6 +221,19 @@
     </property>
    </widget>
   </widget>
+  <widget class="QLabel" name="lblLoginStatus">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>530</y>
+     <width>851</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -17,6 +17,7 @@ Login::~Login()
 void Login::on_btnOk_clicked()
 {
     if(ui->lePassInput->text().compare("koosi")!=0){
+        ui->lblLoginStatus->setText("Wrong Password.");
         return;
     }
 
@@ -30,4 +31,5 @@ void Login::on_btnGenerate_clicked()
 {
     QString output = string_crypter_ptr ->EncodeString(ui->genPassInputLineEdit->text(), "koosi");
     ui->leGenPassOutput->setText(output);
+    ui->lblLoginStatus->setText("Password generation successful.");
 }

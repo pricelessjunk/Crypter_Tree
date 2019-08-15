@@ -1,4 +1,3 @@
-- add labels to show status in login page (Wrong password)
 - change default pass for passencryption to byte string and also change it to something different than koosi
 - read password from yaml file
 - store password in yaml file
