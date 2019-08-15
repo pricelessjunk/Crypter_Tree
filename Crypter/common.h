@@ -10,6 +10,7 @@ const QString SUFFIX_ENC = "_enc";
 //const QString SEPERATOR = "\\";
 const QString SEPERATOR = "/";
 const QString PWD = "koosi";
+const QString PWDENC= "\x6b\x6f\x6f\x73\x69\x24\x32\x34\x38\x38";
 
 enum Mode {Encrypt, Decrypt};
 enum SearchMode {ALL, DIR_ONLY};
