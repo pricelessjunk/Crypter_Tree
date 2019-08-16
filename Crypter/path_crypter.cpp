@@ -94,7 +94,6 @@ QString PathCrypter::DecodeString(const QString &input, const QString &password)
             int number = input.at(i).toLatin1() - '0';
             char dec_char = static_cast<char>(ALNUM_CHAR_LIST_SIZE * number + GetPrelistIndex(input.at(++i).toLatin1())
                     - password.at(pass_ind % password_size).toLatin1());
-
             dec_string += dec_char;
         } else {
             dec_string += input[i];

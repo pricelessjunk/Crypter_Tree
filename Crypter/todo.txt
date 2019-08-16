@@ -1,8 +1,8 @@
-- change default pass for passencryption to byte string and also change it to something different than koosi
 - read password from yaml file
 - store password in yaml file
 - change password (Should re-encrypt everything)
 - Read from a config file exception lists
+- Create file browser
 
 - Create consle output window
 - Seperate encryption algorithm into another thread.

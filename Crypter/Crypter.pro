@@ -57,7 +57,11 @@ SUBDIRS += \
 
 DISTFILES += \
     Crypter.pri \
+    config/crypter.cfg \
     todo.txt
 
 RESOURCES += \
     resources.qrc
+
+LIBS += \
+       -lboost_system\

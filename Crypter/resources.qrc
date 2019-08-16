@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>ajax-loader.gif</file>
+        <file>config/crypter.cfg</file>
     </qresource>
 </RCC>
