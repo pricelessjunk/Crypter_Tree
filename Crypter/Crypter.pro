@@ -57,7 +57,6 @@ SUBDIRS += \
 
 DISTFILES += \
     Crypter.pri \
-    config/crypter.cfg \
     todo.txt
 
 RESOURCES += \

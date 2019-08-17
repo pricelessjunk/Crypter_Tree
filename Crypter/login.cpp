@@ -41,7 +41,7 @@ void Login::on_btnGenerate_clicked()
 
 void Login::loadConfig()
 {
-    QFile qFile(":/config/crypter.cfg");
+    QFile qFile("../config/crypter.cfg");
 
     if (qFile.open(QIODevice::ReadOnly))
     {
