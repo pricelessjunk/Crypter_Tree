@@ -46,8 +46,8 @@ void Login::on_btnChange_clicked()
         return;
     }
 
-    QFile qFile(".." + SEPERATOR +"config" + SEPERATOR +"crypter.cfg");
-    QFile wqFile(".." + SEPERATOR +"config" + SEPERATOR +"crypter.cfg.write");
+    QFile qFile("config" + SEPERATOR +"crypter.cfg");
+    QFile wqFile("config" + SEPERATOR +"crypter.cfg.write");
 
     if (qFile.open(QIODevice::ReadOnly) && wqFile.open(QIODevice::WriteOnly))
     {
@@ -81,7 +81,7 @@ void Login::on_btnChange_clicked()
 
 void Login::loadConfig()
 {
-    QFile qFile(".." + SEPERATOR +"config" + SEPERATOR +"crypter.cfg");
+    QFile qFile("config" + SEPERATOR +"crypter.cfg");
 
     if (qFile.open(QIODevice::ReadOnly))
     {
