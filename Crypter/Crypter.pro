@@ -64,6 +64,3 @@ DISTFILES += \
 
 RESOURCES += \
     resources.qrc
-
-LIBS += \
-       -lboost_system\
