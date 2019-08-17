@@ -39,13 +39,56 @@ void Login::on_btnGenerate_clicked()
     ui->lblLoginStatus->setText("Password generation successful.");
 }
 
+void Login::on_btnChange_clicked()
+{
+    if(ui->OldPassLineEdit->text().compare(PWD)!=0){
+        ui->lblLoginStatus->setText("Wrong Old Password.");
+        return;
+    }
+
+    QFile qFile(".." + SEPERATOR +"config" + SEPERATOR +"crypter.cfg");
+    QFile wqFile(".." + SEPERATOR +"config" + SEPERATOR +"crypter.cfg.write");
+
+    if (qFile.open(QIODevice::ReadOnly) && wqFile.open(QIODevice::WriteOnly))
+    {
+        QTextStream in(&qFile);
+        QTextStream out(&wqFile);
+
+        while (!in.atEnd())
+        {
+            QString line = in.readLine();
+
+            if(line.startsWith("password:")){
+                line = "password:" + string_crypter_ptr ->EncodeString(ui->newPassLineEdit->text(), PWDENC);
+            }
+
+            out << line << "\n";
+        }
+
+        qFile.close();
+        wqFile.close();
+
+        QString name = qFile.fileName();
+        qFile.remove();
+        wqFile.rename(name);
+
+        loadConfig();
+        PWD = runtimeConfigs.take("password");
+        ui->lblLoginStatus->setText("Password changed successfully");
+        ui->OldPassLineEdit->setText("");
+        ui->newPassLineEdit->setText("");
+    }
+}
+
 void Login::loadConfig()
 {
-    QFile qFile("../config/crypter.cfg");
+    QFile qFile(".." + SEPERATOR +"config" + SEPERATOR +"crypter.cfg");
 
     if (qFile.open(QIODevice::ReadOnly))
     {
         QTextStream in(&qFile);
+        runtimeConfigs.clear();
+
         while (!in.atEnd())
         {
             QString line = in.readLine();
@@ -69,4 +112,6 @@ void Login::loadConfig()
 QString Login::getDecryptedPass(QString& input){
     return string_crypter_ptr ->DecodeString(input, PWDENC);
 }
+
+
 

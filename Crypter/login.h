@@ -26,6 +26,8 @@ private slots:
 
     void on_btnGenerate_clicked();
 
+    void on_btnChange_clicked();
+
 private:
     Ui::Login *ui;
 

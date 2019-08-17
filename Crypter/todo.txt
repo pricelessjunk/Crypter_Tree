@@ -1,7 +1,6 @@
-- read password from yaml file
-- store password in yaml file
 - change password (Should re-encrypt everything)
 - Read from a config file exception lists
+- Sync selection of two windows on decrypt mode
 - Create file browser
 
 - Create consle output window
