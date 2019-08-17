@@ -1,5 +1,6 @@
-- Read from a config file exception lists
-- Sync selection of two windows on decrypt mode
+- Fix bug for exeption list. Need some sort of way to share the runtimeconfig. Also rename to context.
+- Create windows support
+- integrate status ui
 - Create file browser
 
 - Create consle output window
@@ -8,4 +9,3 @@
 
 - When nothing to encrypt/decrypt return empty list. Currently, list contains the searched path.
 - Merge Controller::encrypt and Controller::decrypt
-- Fix test main class.

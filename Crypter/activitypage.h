@@ -38,6 +38,10 @@ private slots:
 
     void on_btnDecryptSearch_clicked();
 
+    void on_listWidget_decoded_itemSelectionChanged();
+
+    void on_listWidget_itemSelectionChanged();
+
 private:
     Ui::ActivityPage *ui;
 

@@ -140,3 +140,14 @@ void ActivityPage::loadRuntimes(QMap<QString,QString>& input){
     runtimeConfigs.swap(input);
 }
 
+
+void ActivityPage::on_listWidget_decoded_itemSelectionChanged()
+{
+     ui->listWidget->setCurrentRow(ui->listWidget_decoded->currentRow());
+}
+
+
+void ActivityPage::on_listWidget_itemSelectionChanged()
+{
+     ui->listWidget_decoded->setCurrentRow(ui->listWidget->currentRow());
+}
