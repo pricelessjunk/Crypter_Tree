@@ -28,9 +28,7 @@ std::vector<Fullpath> DirUtils::GetFiles(Fullpath rootPath_fp, Mode mode, Search
                 continue;
             }
 
-            // Skip files with extensions .exe, .dll
-            std::vector<QString> exceptionList {".exe", ".dll"};
-            if(mode==Encrypt && FilterFilesWithExtensions(name, exceptionList)){
+            if(mode==Encrypt && FilterFilesWithExtensions(name)){
                 continue;
             }
 
@@ -95,14 +93,9 @@ QString DirUtils::GetAbsolutePath(const Fullpath& path, vector_qstring_size_t in
     return output;
 }
 
-bool DirUtils::FilterFilesWithExtensions(const QString &mainStr, const std::vector<QString>& exceptionList) const{
-    for (vector_qstring_size_t i=0; i<exceptionList.size(); i++) {
-        if(mainStr.endsWith(exceptionList.at(i))){
-            return true;
-        }
-    }
-
-    return false;
+bool DirUtils::FilterFilesWithExtensions(const QString &mainStr) const{
+    QStringRef extension(&mainStr, mainStr.length()-4, 4);
+    return runtimeConfigs.value(KEY_EXCEPTION).contains(extension);
 }
 
 Fullpath DirUtils::CreateRootFullPath(const QString& base) const{

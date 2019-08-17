@@ -54,7 +54,7 @@ int ActivityPage::load_translations(std::vector<Fullpath>& paths, QString& root)
 
     for(std::vector<Fullpath>::iterator it = paths.begin(); it!= paths.end(); it++){
         Fullpath fullpath = (*it);
-        Fullpath decodedPath = path_crypter_ptr->GetDecodedPath(fullpath, PWD);
+        Fullpath decodedPath = path_crypter_ptr->GetDecodedPath(fullpath, runtimeConfigs.value(KEY_PASSWORD));
         ui->listWidget_decoded->addItem(dir_utils_ptr->GetAbsolutePath(decodedPath));
 
     }
@@ -80,11 +80,11 @@ void ActivityPage::on_encryptDecryptButton_clicked()
 
     if(current_state == Mode::Encrypt){
         setStatus("Encrypting...");
-        controller_ptr->encrypt(PWD, base, deepLink);
+        controller_ptr->encrypt(runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
         setStatus("Encryption Completed.");
     }else if (current_state == Mode::Decrypt) {
         setStatus("Decrypting...");
-        controller_ptr->decrypt(PWD, base, deepLink);
+        controller_ptr->decrypt(runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
         setStatus("Decryption Completed.");
     }
     showLoadingAnimation(false);
@@ -134,5 +134,9 @@ void ActivityPage::setStatus(QString status){
 
 void ActivityPage::showLoadingAnimation(bool loading){
     ui->lblProcess->setVisible(loading);
+}
+
+void ActivityPage::loadRuntimes(QMap<QString,QString>& input){
+    runtimeConfigs.swap(input);
 }
 

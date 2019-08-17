@@ -11,7 +11,6 @@ Login::Login(QDialog *parent) :
     string_crypter_ptr = std::unique_ptr<PathCrypter>(new PathCrypter());
 
     loadConfig();
-    PWD = runtimeConfigs.take("password");
 }
 
 Login::~Login()
@@ -21,13 +20,14 @@ Login::~Login()
 
 void Login::on_btnOk_clicked()
 {
-    if(ui->lePassInput->text().compare(PWD)!=0){
+    if(ui->lePassInput->text().compare(runtimeConfigs.value(KEY_PASSWORD))!=0){
         ui->lblLoginStatus->setText("Wrong Password.");
         return;
     }
 
     ActivityPage* ap = new ActivityPage(this);
     this->hide();
+    ap->loadRuntimes(runtimeConfigs);
     ap->setModal(true);
     ap->show();
 }
@@ -41,7 +41,7 @@ void Login::on_btnGenerate_clicked()
 
 void Login::on_btnChange_clicked()
 {
-    if(ui->OldPassLineEdit->text().compare(PWD)!=0){
+    if(ui->OldPassLineEdit->text().compare(runtimeConfigs.value(KEY_PASSWORD))!=0){
         ui->lblLoginStatus->setText("Wrong Old Password.");
         return;
     }
@@ -58,8 +58,8 @@ void Login::on_btnChange_clicked()
         {
             QString line = in.readLine();
 
-            if(line.startsWith("password:")){
-                line = "password:" + string_crypter_ptr ->EncodeString(ui->newPassLineEdit->text(), PWDENC);
+            if(line.startsWith(KEY_PASSWORD + ":")){
+                line = KEY_PASSWORD + ":" + string_crypter_ptr ->EncodeString(ui->newPassLineEdit->text(), PWDENC);
             }
 
             out << line << "\n";
@@ -73,7 +73,6 @@ void Login::on_btnChange_clicked()
         wqFile.rename(name);
 
         loadConfig();
-        PWD = runtimeConfigs.take("password");
         ui->lblLoginStatus->setText("Password changed successfully");
         ui->OldPassLineEdit->setText("");
         ui->newPassLineEdit->setText("");
@@ -95,7 +94,7 @@ void Login::loadConfig()
             QStringList splits = line.split(":");
 
             QString key = splits.front();
-            if(key.compare("password")==0){
+            if(key.compare(KEY_PASSWORD)==0){
                 runtimeConfigs.insert(key, getDecryptedPass(splits.back()));
             }else {
                 runtimeConfigs.insert(key, splits.back());

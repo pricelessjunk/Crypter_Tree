@@ -7,7 +7,10 @@
 
 #define vector_qstring_size_t std::vector<QString>::size_type
 const QString SUFFIX_ENC = "_enc";
-static QString PWD = "";
+
+const QString KEY_PASSWORD = "password";
+const QString KEY_EXCEPTION = "exception";
+
 static QMap<QString, QString> runtimeConfigs ;
 
 #ifdef _WIN32

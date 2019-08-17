@@ -29,6 +29,7 @@ public:
     explicit ActivityPage(QWidget *parent = nullptr);
     ~ActivityPage();
     void setStatus(QString status);
+    void loadRuntimes(QMap<QString,QString>& input);
 
 private slots:
     void on_encryptDecryptButton_clicked();

@@ -20,8 +20,6 @@
 
 #include "common.h"
 
-
-
 class DirUtils {
 
 public:
@@ -34,8 +32,8 @@ public:
     void CheckAndCreateDirectory(const Fullpath& name);
     bool DoesDirectoryExist(const QString& name) const;
 private:
-    bool FilterFilesWithExtensions(const QString &mainStr, const std::vector<QString>& exceptionList) const;
     QString GetAbsolutePath(const Fullpath &path, vector_qstring_size_t index);
+    bool FilterFilesWithExtensions(const QString &mainStr) const;
 };
 
 #endif /* DIRUTIL_H_ */

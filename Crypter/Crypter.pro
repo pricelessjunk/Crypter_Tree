@@ -31,7 +31,8 @@ SOURCES += \
         file_crypter.cpp \
         login.cpp \
         main.cpp \
-        path_crypter.cpp
+        path_crypter.cpp \
+        status.cpp
 
 HEADERS += \
         activitypage.h \
@@ -40,11 +41,13 @@ HEADERS += \
         dir_utils.h \
         file_crypter.h \
         login.h \
-        path_crypter.h
+        path_crypter.h \
+        status.h
 
 FORMS += \
         activitypage.ui \
-        login.ui
+        login.ui \
+        status.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

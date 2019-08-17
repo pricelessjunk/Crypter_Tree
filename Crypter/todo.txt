@@ -1,4 +1,3 @@
-- change password (Should re-encrypt everything)
 - Read from a config file exception lists
 - Sync selection of two windows on decrypt mode
 - Create file browser
@@ -9,3 +8,4 @@
 
 - When nothing to encrypt/decrypt return empty list. Currently, list contains the searched path.
 - Merge Controller::encrypt and Controller::decrypt
+- Fix test main class.
