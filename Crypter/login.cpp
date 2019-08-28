@@ -46,8 +46,8 @@ void Login::on_btnChange_clicked()
         return;
     }
 
-    QFile qFile("config" + SEPERATOR +"crypter.cfg");
-    QFile wqFile("config" + SEPERATOR +"crypter.cfg.write");
+    QFile qFile(CONFIG_PATH);
+    QFile wqFile(CONFIG_PATH + ".write");
 
     if (qFile.open(QIODevice::ReadOnly) && wqFile.open(QIODevice::WriteOnly))
     {
@@ -81,7 +81,7 @@ void Login::on_btnChange_clicked()
 
 void Login::loadConfig()
 {
-    QFile qFile("config" + SEPERATOR +"crypter.cfg");
+    QFile qFile(CONFIG_PATH);
 
     if (qFile.open(QIODevice::ReadOnly))
     {

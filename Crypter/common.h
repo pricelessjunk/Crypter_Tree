@@ -7,9 +7,9 @@
 
 #define vector_qstring_size_t std::vector<QString>::size_type
 const QString SUFFIX_ENC = "_enc";
-
 const QString KEY_PASSWORD = "password";
 const QString KEY_EXCEPTION = "exception";
+const QString CONFIG_PATH = (new QString(std::getenv("HOME")))->append("/.config/crypter/crypter.cfg");
 
 static QMap<QString, QString> runtimeConfigs ;
 
