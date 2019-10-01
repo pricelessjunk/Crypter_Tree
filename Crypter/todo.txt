@@ -1,7 +1,7 @@
 - Fix bug for exeption list. Need some sort of way to share the runtimeconfig. Also rename to context.
-- Create windows support
 - integrate status ui
 - Create file browser
+- Crete a delete button
 
 - Create consle output window
 - Seperate encryption algorithm into another thread.

@@ -82,7 +82,6 @@ void Login::on_btnChange_clicked()
 void Login::loadConfig()
 {
     QFile qFile(CONFIG_PATH);
-
     if (qFile.open(QIODevice::ReadOnly))
     {
         QTextStream in(&qFile);
@@ -103,9 +102,12 @@ void Login::loadConfig()
 
         }
         qFile.close();
+        qDebug() << "Loading config complete";
+    }else {
+        qDebug() << "Error: Config file not found";
     }
 
-    qDebug() << "Loading config complete";
+
 }
 
 QString Login::getDecryptedPass(QString& input){

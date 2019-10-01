@@ -9,14 +9,18 @@
 const QString SUFFIX_ENC = "_enc";
 const QString KEY_PASSWORD = "password";
 const QString KEY_EXCEPTION = "exception";
-const QString CONFIG_PATH = (new QString(std::getenv("HOME")))->append("/.config/crypter/crypter.cfg");
+
 
 static QMap<QString, QString> runtimeConfigs ;
 
 #ifdef _WIN32
 const QString SEPERATOR = "\\";
+const QString CONFIG_PATH = qEnvironmentVariable("CRYPTER_CONFIG").append("\\crypter.cfg");
+#define MKDIR mkdir(name.toLatin1().data())
 #else
 const QString SEPERATOR = "/";
+const QString CONFIG_PATH = (new QString(std::getenv("HOME")))->append("/.config/crypter/crypter.cfg");
+#define MKDIR mkdir(name.toLatin1().data(), S_IRWXU|S_IRGRP|S_IXGRP |S_IROTH|S_IXOTH)
 #endif
 
 enum Mode {Encrypt, Decrypt};
