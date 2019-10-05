@@ -9,3 +9,7 @@
 
 - When nothing to encrypt/decrypt return empty list. Currently, list contains the searched path.
 - Merge Controller::encrypt and Controller::decrypt
+
+Bug
+---
+In windows, no taskbar tab created. research why

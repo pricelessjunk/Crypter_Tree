@@ -143,11 +143,23 @@ void ActivityPage::loadRuntimes(QMap<QString,QString>& input){
 
 void ActivityPage::on_listWidget_decoded_itemSelectionChanged()
 {
-     ui->listWidget->setCurrentRow(ui->listWidget_decoded->currentRow());
+    ui->listWidget->setCurrentRow(ui->listWidget_decoded->currentRow());
 }
 
 
 void ActivityPage::on_listWidget_itemSelectionChanged()
 {
-     ui->listWidget_decoded->setCurrentRow(ui->listWidget->currentRow());
+    ui->listWidget_decoded->setCurrentRow(ui->listWidget->currentRow());
+}
+
+void ActivityPage::on_deleteButton_clicked()
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Test", "Quit?", QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        qDebug() << "Yes was clicked";
+        QApplication::quit();
+    } else {
+        qDebug() << "Yes was *not* clicked";
+    }
 }

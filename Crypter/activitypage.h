@@ -7,6 +7,7 @@
 
 #include <QtWidgets/QListWidget>
 #include <QMovie>
+#include <QMessageBox>
 
 #include "dir_utils.h"
 #include "controller.h"
@@ -41,6 +42,8 @@ private slots:
     void on_listWidget_decoded_itemSelectionChanged();
 
     void on_listWidget_itemSelectionChanged();
+
+    void on_deleteButton_clicked();
 
 private:
     Ui::ActivityPage *ui;
