@@ -25,28 +25,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        activitypage.cpp \
         controller.cpp \
         dir_utils.cpp \
         file_crypter.cpp \
         login.cpp \
         main.cpp \
+        mainwindow.cpp \
         path_crypter.cpp \
         status.cpp
 
 HEADERS += \
-        activitypage.h \
         common.h \
         controller.h \
         dir_utils.h \
         file_crypter.h \
         login.h \
+        mainwindow.h \
         path_crypter.h \
         status.h
 
 FORMS += \
-        activitypage.ui \
         login.ui \
+        mainwindow.ui \
         status.ui
 
 # Default rules for deployment.

@@ -1,5 +1,7 @@
-#ifndef ACTIVITYPAGE_H
-#define ACTIVITYPAGE_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
 
 #include <QDialog>
 #include <iostream>
@@ -13,10 +15,10 @@
 #include "controller.h"
 
 namespace Ui {
-class ActivityPage;
+class MainWindow;
 }
 
-class ActivityPage : public QDialog
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
     std::unique_ptr<DirUtils> dir_utils_ptr;
@@ -27,8 +29,8 @@ class ActivityPage : public QDialog
     std::unique_ptr<QMovie> qmovie_ptr = std::unique_ptr<QMovie>(new QMovie(":/ajax-loader.gif"));
 
 public:
-    explicit ActivityPage(QWidget *parent = nullptr);
-    ~ActivityPage();
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
     void setStatus(QString status);
     void loadRuntimes(QMap<QString,QString>& input);
 
@@ -46,7 +48,7 @@ private slots:
     void on_deleteButton_clicked();
 
 private:
-    Ui::ActivityPage *ui;
+    Ui::MainWindow *ui;
 
     int load_paths(std::vector<Fullpath> paths, QString root = "");
 
@@ -56,4 +58,4 @@ private:
 
 };
 
-#endif // ACTIVITYPAGE_H
+#endif // MAINWINDOW_H

@@ -1,9 +1,9 @@
-#include "activitypage.h"
-#include "ui_activitypage.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
-ActivityPage::ActivityPage(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ActivityPage)
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     dir_utils_ptr = std::unique_ptr<DirUtils>(new DirUtils());
@@ -22,12 +22,12 @@ ActivityPage::ActivityPage(QWidget *parent) :
     ui->lblProcess->setVisible(false);
 }
 
-ActivityPage::~ActivityPage()
+MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-int ActivityPage::load_paths(std::vector<Fullpath> paths, QString root){
+int MainWindow::load_paths(std::vector<Fullpath> paths, QString root){
     ui->listWidget->clear();
 
     if(!dir_utils_ptr->DoesDirectoryExist(root)){
@@ -46,7 +46,7 @@ int ActivityPage::load_paths(std::vector<Fullpath> paths, QString root){
     return 0;
 }
 
-int ActivityPage::load_translations(std::vector<Fullpath>& paths, QString& root){
+int MainWindow::load_translations(std::vector<Fullpath>& paths, QString& root){
 
     if(root.compare("")!=0){
         ui->listWidget_decoded->addItem(root);
@@ -62,7 +62,7 @@ int ActivityPage::load_translations(std::vector<Fullpath>& paths, QString& root)
     return 0;
 }
 
-void ActivityPage::on_encryptDecryptButton_clicked()
+void MainWindow::on_encryptDecryptButton_clicked()
 {
     if(ui->listWidget->selectedItems().size()==0){
         return;
@@ -90,7 +90,7 @@ void ActivityPage::on_encryptDecryptButton_clicked()
     showLoadingAnimation(false);
 }
 
-void ActivityPage::on_btnEncryptSearch_clicked()
+void MainWindow::on_btnEncryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
@@ -107,7 +107,7 @@ void ActivityPage::on_btnEncryptSearch_clicked()
     showLoadingAnimation(false);
 }
 
-void ActivityPage::on_btnDecryptSearch_clicked()
+void MainWindow::on_btnDecryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
@@ -127,32 +127,32 @@ void ActivityPage::on_btnDecryptSearch_clicked()
     showLoadingAnimation(false);
 }
 
-void ActivityPage::setStatus(QString status){
+void MainWindow::setStatus(QString status){
     ui->lblStatus->setText(status);
     qApp->processEvents();
 }
 
-void ActivityPage::showLoadingAnimation(bool loading){
+void MainWindow::showLoadingAnimation(bool loading){
     ui->lblProcess->setVisible(loading);
 }
 
-void ActivityPage::loadRuntimes(QMap<QString,QString>& input){
+void MainWindow::loadRuntimes(QMap<QString,QString>& input){
     runtimeConfigs.swap(input);
 }
 
 
-void ActivityPage::on_listWidget_decoded_itemSelectionChanged()
+void MainWindow::on_listWidget_decoded_itemSelectionChanged()
 {
     ui->listWidget->setCurrentRow(ui->listWidget_decoded->currentRow());
 }
 
 
-void ActivityPage::on_listWidget_itemSelectionChanged()
+void MainWindow::on_listWidget_itemSelectionChanged()
 {
     ui->listWidget_decoded->setCurrentRow(ui->listWidget->currentRow());
 }
 
-void ActivityPage::on_deleteButton_clicked()
+void MainWindow::on_deleteButton_clicked()
 {
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Test", "Quit?", QMessageBox::Yes|QMessageBox::No);

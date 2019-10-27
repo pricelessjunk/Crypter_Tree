@@ -25,11 +25,11 @@ void Login::on_btnOk_clicked()
         return;
     }
 
-    ActivityPage* ap = new ActivityPage(this);
+    MainWindow* mw = new MainWindow(this);
     this->hide();
-    ap->loadRuntimes(runtimeConfigs);
-    ap->setModal(true);
-    ap->show();
+    mw->loadRuntimes(runtimeConfigs);
+    //ap->setModal(true);
+    mw->show();
 }
 
 void Login::on_btnGenerate_clicked()

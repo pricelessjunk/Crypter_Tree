@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <fstream>
 #include "common.h"
-#include "activitypage.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class Login;
