@@ -131,3 +131,9 @@ bool DirUtils::DoesDirectoryExist(const QString& name) const{
     struct stat s;
     return  stat (name.toLatin1().data(), &s) == 0;
 }
+
+void DirUtils::DeleteFolder(const QString &name) const
+{
+    QDir dir(name);
+    dir.removeRecursively();
+}

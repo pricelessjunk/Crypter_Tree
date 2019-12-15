@@ -65,6 +65,7 @@ int ActivityPage::load_translations(std::vector<Fullpath>& paths, QString& root)
 void ActivityPage::on_encryptDecryptButton_clicked()
 {
     if(ui->listWidget->selectedItems().size()==0){
+        setStatus("List is empty");
         return;
     }
 
@@ -154,12 +155,24 @@ void ActivityPage::on_listWidget_itemSelectionChanged()
 
 void ActivityPage::on_deleteButton_clicked()
 {
+    if(ui->listWidget->selectedItems().size()==0){
+        setStatus("List is empty");
+        return;
+    }
+
+    QString selected = ui->listWidget->selectedItems().front()->text();
+    QString selected_decoded_in_brackets = current_state == Mode::Decrypt? "(" + ui->listWidget_decoded->selectedItems().front()->text() + ")" : "";
+
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Test", "Quit?", QMessageBox::Yes|QMessageBox::No);
+    reply = QMessageBox::question(this, "Delete", "Delete " + selected + " ? " + selected_decoded_in_brackets, QMessageBox::Yes|QMessageBox::No);
     if (reply == QMessageBox::Yes) {
-        qDebug() << "Yes was clicked";
-        QApplication::quit();
-    } else {
-        qDebug() << "Yes was *not* clicked";
+        dir_utils_ptr->DeleteFolder(selected);
+        qDebug() << "Deleted " + selected << " " << selected_decoded_in_brackets;
+
+        if(current_state == Mode::Encrypt){
+            on_btnEncryptSearch_clicked();
+        }else{
+            on_btnDecryptSearch_clicked();
+        }
     }
 }

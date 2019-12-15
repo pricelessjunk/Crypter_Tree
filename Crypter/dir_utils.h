@@ -12,6 +12,8 @@
 #include <dirent.h> // For DIR
 #include <sys/stat.h>
 
+#include <QDir>
+
 //#include <direct.h>
 //#define GetCurrentDir _getcwd
 //For Unix
@@ -31,6 +33,7 @@ public:
     Fullpath CreateRootFullPath(const QString& base) const;
     void CheckAndCreateDirectory(const Fullpath& name);
     bool DoesDirectoryExist(const QString& name) const;
+    void DeleteFolder(const QString& name) const;
 private:
     QString GetAbsolutePath(const Fullpath &path, vector_qstring_size_t index);
     bool FilterFilesWithExtensions(const QString &mainStr) const;
