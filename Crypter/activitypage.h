@@ -45,6 +45,8 @@ private slots:
 
     void on_deleteButton_clicked();
 
+    void setIndicatorEncrypt(bool isEncrypt) const;
+
 private:
     Ui::ActivityPage *ui;
 

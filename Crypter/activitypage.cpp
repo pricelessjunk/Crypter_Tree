@@ -16,6 +16,9 @@ ActivityPage::ActivityPage(QWidget *parent) :
     ui->searchBoxLineEdit->setText(dir_utils_ptr->GetAbsolutePath(cur_dir));
     load_paths(dir_utils_ptr->GetFiles(cur_dir, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path);
     current_state = Mode::Encrypt;
+    ui->listWidget_decoded->setVisible(false);
+
+    setIndicatorEncrypt(true);
 
     ui->lblProcess->setMovie(qmovie_ptr.get());
     qmovie_ptr->start();
@@ -101,6 +104,9 @@ void ActivityPage::on_btnEncryptSearch_clicked()
 
     if(ret_code==0){
         current_state = Mode::Encrypt;
+        ui->encryptDecryptButton->setText("Encrypt");
+        ui->listWidget_decoded->setVisible(false);
+        setIndicatorEncrypt(true);
         setStatus("Loaded. In mode Encrypt.");
     }else if(ret_code==1){
         setStatus("Directory not found.");
@@ -120,6 +126,9 @@ void ActivityPage::on_btnDecryptSearch_clicked()
     if(ret_code==0){
         current_state = Mode::Decrypt;
         load_translations(foundFiles, cur_path_str);
+        ui->encryptDecryptButton->setText("Decrypt");
+        ui->listWidget_decoded->setVisible(true);
+        setIndicatorEncrypt(false);
         setStatus("Loaded. In mode Decrypt.");
     }else if(ret_code==1){
         setStatus("Directory not found.");
@@ -174,5 +183,15 @@ void ActivityPage::on_deleteButton_clicked()
         }else{
             on_btnDecryptSearch_clicked();
         }
+    }
+}
+
+void ActivityPage::setIndicatorEncrypt(bool isEncrypt) const{
+    if(isEncrypt){
+        ui->lblIndicator_Encrypt->setStyleSheet("QLabel { background-color : green; color : white; }");
+        ui->lblIndicator_Decrypt->setStyleSheet("QLabel { background-color : silver; color : white; }");
+    }else{
+        ui->lblIndicator_Encrypt->setStyleSheet("QLabel { background-color : silver; color : white; }");
+        ui->lblIndicator_Decrypt->setStyleSheet("QLabel { background-color : green; color : white; }");
     }
 }

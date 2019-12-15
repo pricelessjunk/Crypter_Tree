@@ -77,6 +77,48 @@
      <string>Search to Decrypt</string>
     </property>
    </widget>
+   <widget class="QLabel" name="lblIndicator_Encrypt">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Encrypt</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::RichText</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblIndicator_Decrypt">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>60</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Decrypt</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::RichText</enum>
+    </property>
+   </widget>
   </widget>
   <widget class="QLabel" name="lblStatus">
    <property name="geometry">
@@ -139,7 +181,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Encrypt/Decrypt</string>
+     <string>Encrypt</string>
     </property>
    </widget>
    <widget class="QListWidget" name="listWidget_decoded">

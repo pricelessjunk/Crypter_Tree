@@ -1,9 +1,6 @@
-- Crete a delete button. Implement functionality windows
-- Crete a delete button. Implement functionality linux
 - Fix bug for exeption list. Need some sort of way to share the runtimeconfig. Also rename to context. - Possible way to place the context in a namespace within the common.h
 - integrate status ui  ?? what was this now??
 - Create file browser
-- Rename "Encrypt/Decrypt" button based on "Search to Encrypt" or "Search to Decrypt". The button should be either "Encrypt" in the former case, or "Decrypt".
 
 - Create consle output window
 - Seperate encryption algorithm into another thread.
