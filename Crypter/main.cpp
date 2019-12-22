@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
     // QApplication::quit();
 
     Login l;
+    l.setWindowTitle(TITLE_LOGIN);
     l.show();
 
     return a.exec();

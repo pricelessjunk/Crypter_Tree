@@ -25,8 +25,9 @@ void Login::on_btnOk_clicked()
         return;
     }
 
-    ActivityPage* ap = new ActivityPage(this);
+    ActivityPage* ap = new ActivityPage();
     this->hide();
+    ap->setWindowTitle(TITLE_CRYPTER);
     ap->loadRuntimes(runtimeConfigs);
     ap->setModal(true);
     ap->show();

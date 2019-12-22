@@ -43,6 +43,9 @@ static const QString SUFFIX_ENC = "_enc";
 static const QString KEY_PASSWORD = "password";
 static const QString KEY_EXCEPTION = "exception";
 
+static const QString TITLE_CRYPTER = "Crypter";
+static const QString TITLE_LOGIN = "Login";
+
 static const QString STATUS_LIST_IS_EMPTY = "List is empty.";
 static const QString STATUS_NO_SUCH_DIRECTORY = "No such directory.";
 static const QString STATUS_NO_ITEM_SELECTED = "No item selected.";

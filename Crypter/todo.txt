@@ -6,7 +6,3 @@
 - Create a progress bar
 
 - Merge Controller::encrypt and Controller::decrypt
-
-Bug
----
-In windows, no taskbar tab created. research why
