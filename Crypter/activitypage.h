@@ -8,6 +8,7 @@
 #include <QtWidgets/QListWidget>
 #include <QMovie>
 #include <QMessageBox>
+#include <QFileDialog>
 
 #include "dir_utils.h"
 #include "controller.h"
@@ -46,6 +47,8 @@ private slots:
     void on_deleteButton_clicked();
 
     void setIndicatorEncrypt(bool isEncrypt) const;
+
+    void on_btnBrowse_clicked();
 
 private:
     Ui::ActivityPage *ui;

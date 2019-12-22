@@ -200,3 +200,13 @@ void ActivityPage::setIndicatorEncrypt(bool isEncrypt) const{
         ui->lblIndicator_Decrypt->setStyleSheet("QLabel { background-color : green; color : white; }");
     }
 }
+
+void ActivityPage::on_btnBrowse_clicked()
+{
+    QString pathName = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                         "/home",
+                                                         QFileDialog::ShowDirsOnly
+                                                         | QFileDialog::DontResolveSymlinks);
+
+    ui->searchBoxLineEdit->setText(pathName);
+}
