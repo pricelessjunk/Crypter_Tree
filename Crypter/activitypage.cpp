@@ -37,7 +37,7 @@ int ActivityPage::load_paths(std::vector<Fullpath> paths, QString root){
         return 1;
     }
 
-    if(root.compare("")!=0){
+    if(root.compare("")!=0 && !paths.empty()){
         ui->listWidget->addItem(root);
     }
 
@@ -67,8 +67,13 @@ int ActivityPage::load_translations(std::vector<Fullpath>& paths, QString& root)
 
 void ActivityPage::on_encryptDecryptButton_clicked()
 {
+    if(ui->listWidget->count() == 0){
+        setStatus(STATUS_LIST_IS_EMPTY);
+        return;
+    }
+
     if(ui->listWidget->selectedItems().size()==0){
-        setStatus("List is empty");
+        setStatus(STATUS_NO_ITEM_SELECTED);
         return;
     }
 
@@ -83,13 +88,13 @@ void ActivityPage::on_encryptDecryptButton_clicked()
     }
 
     if(current_state == Mode::Encrypt){
-        setStatus("Encrypting...");
+        setStatus(STATUS_ENCRYPTING);
         controller_ptr->encrypt(runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
-        setStatus("Encryption Completed.");
+        setStatus(STATUS_ENCRYPTION_COMPLETED);
     }else if (current_state == Mode::Decrypt) {
-        setStatus("Decrypting...");
+        setStatus(STATUS_DECRYPTING);
         controller_ptr->decrypt(runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
-        setStatus("Decryption Completed.");
+        setStatus(STATUS_DECRYPTION_COMPLETED);
     }
     showLoadingAnimation(false);
 }
@@ -104,12 +109,12 @@ void ActivityPage::on_btnEncryptSearch_clicked()
 
     if(ret_code==0){
         current_state = Mode::Encrypt;
-        ui->encryptDecryptButton->setText("Encrypt");
+        ui->encryptDecryptButton->setText(ENCRYPT);
         ui->listWidget_decoded->setVisible(false);
         setIndicatorEncrypt(true);
-        setStatus("Loaded. In mode Encrypt.");
+        setStatus(STATUS_LOADED);
     }else if(ret_code==1){
-        setStatus("Directory not found.");
+        setStatus(STATUS_NO_SUCH_DIRECTORY);
     }
     showLoadingAnimation(false);
 }
@@ -126,12 +131,12 @@ void ActivityPage::on_btnDecryptSearch_clicked()
     if(ret_code==0){
         current_state = Mode::Decrypt;
         load_translations(foundFiles, cur_path_str);
-        ui->encryptDecryptButton->setText("Decrypt");
+        ui->encryptDecryptButton->setText(DECRYPT);
         ui->listWidget_decoded->setVisible(true);
         setIndicatorEncrypt(false);
-        setStatus("Loaded. In mode Decrypt.");
+        setStatus(STATUS_LOADED);
     }else if(ret_code==1){
-        setStatus("Directory not found.");
+        setStatus(STATUS_NO_SUCH_DIRECTORY);
     }
 
     showLoadingAnimation(false);
@@ -165,7 +170,7 @@ void ActivityPage::on_listWidget_itemSelectionChanged()
 void ActivityPage::on_deleteButton_clicked()
 {
     if(ui->listWidget->selectedItems().size()==0){
-        setStatus("List is empty");
+        setStatus(STATUS_LIST_IS_EMPTY);
         return;
     }
 

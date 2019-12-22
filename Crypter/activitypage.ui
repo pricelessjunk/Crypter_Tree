@@ -130,7 +130,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Loaded. In mode Encrypt</string>
+    <string>Loaded.</string>
    </property>
    <property name="textFormat">
     <enum>Qt::RichText</enum>
