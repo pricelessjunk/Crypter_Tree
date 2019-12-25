@@ -4,5 +4,3 @@
 - Create consle output window
 - Seperate encryption algorithm into another thread.
 - Create a progress bar
-
-- Merge Controller::encrypt and Controller::decrypt

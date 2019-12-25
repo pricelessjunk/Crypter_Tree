@@ -6,11 +6,7 @@
  */
 #include "file_crypter.h"
 
-void FileCrypter::encryptFile(const char* inFile, const char* outFile, const QString& password) {
-    xorOperation(inFile, outFile, password);
-}
-
-void FileCrypter::decryptFile(const char* inFile, const char* outFile, const QString& password) {
+void FileCrypter::processFile(const char* inFile, const char* outFile, const QString& password) {
     xorOperation(inFile, outFile, password);
 }
 

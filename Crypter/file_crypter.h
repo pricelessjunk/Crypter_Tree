@@ -19,8 +19,7 @@ class FileCrypter {
     int xorOperation(const char* inFile, const char* outFile, const QString& password);
 	bool doesFileExists (const char* name);
 public:
-    void encryptFile(const char* inFile, const char* outFile, const QString& password);
-    void decryptFile(const char* inFile, const char* outFile, const QString &password);
+    void processFile(const char* inFile, const char* outFile, const QString& password);
 };
 
 #endif /* FILECRYPTER_H_ */

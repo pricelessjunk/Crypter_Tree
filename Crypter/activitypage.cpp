@@ -89,11 +89,11 @@ void ActivityPage::on_encryptDecryptButton_clicked()
 
     if(current_state == Mode::Encrypt){
         setStatus(STATUS_ENCRYPTING);
-        controller_ptr->encrypt(runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
+        controller_ptr->process(Mode::Encrypt, runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
         setStatus(STATUS_ENCRYPTION_COMPLETED);
     }else if (current_state == Mode::Decrypt) {
         setStatus(STATUS_DECRYPTING);
-        controller_ptr->decrypt(runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
+        controller_ptr->process(Mode::Decrypt, runtimeConfigs.value(KEY_PASSWORD), base, deepLink);
         setStatus(STATUS_DECRYPTION_COMPLETED);
     }
     showLoadingAnimation(false);

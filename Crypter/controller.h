@@ -12,8 +12,7 @@ Fullpath getFullPath(const DirUtils& dirUtils, const QString& root, const QStrin
 class Controller
 {
 public:
-    void encrypt(const QString& password, const QString& root, const QString& deepLink);
-    void decrypt(const QString& password, const QString& root, const QString& deepLink);
+    void process(const Mode& mode, const QString& password, const QString& root, const QString& deepLink);
 };
 
 #endif // CONTROLLER_H
