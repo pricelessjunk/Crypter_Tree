@@ -6,17 +6,18 @@
  */
 #include "file_crypter.h"
 
-void FileCrypter::processFile(const char* inFile, const char* outFile, const QString& password) {
-    xorOperation(inFile, outFile, password);
+void FileCrypter::run() {
+    xorOperation();
 }
 
-int FileCrypter::xorOperation(const char* inFile, const char* outFile, const QString& password) {
-	if (doesFileExists(outFile)) {
+int FileCrypter::xorOperation() {
+    if (doesFileExists(outFile.toLatin1())) {
         qDebug() << "File already exists. Skipping";
-		return 1;
-	}
-	ofstream output(outFile, ofstream::binary);
-	ifstream input(inFile, ifstream::binary);
+        return 1;
+    }
+
+    ofstream output(outFile.toLatin1(), ofstream::binary);
+    ifstream input(inFile.toLatin1(), ifstream::binary);
 
     QString::size_type password_size = static_cast<QString::size_type>(password.size());
 

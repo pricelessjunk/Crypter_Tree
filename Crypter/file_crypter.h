@@ -10,16 +10,28 @@
 
 #include<fstream>
 
+#include <QThread>
+#include <QThreadPool>
+
 #include "common.h"
 
 using std::ofstream;
 using std::ifstream;
 
-class FileCrypter {
-    int xorOperation(const char* inFile, const char* outFile, const QString& password);
-	bool doesFileExists (const char* name);
+class FileCrypter : public QRunnable {
+private:
+    const QString inFile;
+    const QString outFile;
+    const QString password;
+
+    bool doesFileExists (const char* name);
+    int xorOperation();
+
 public:
-    void processFile(const char* inFile, const char* outFile, const QString& password);
+    FileCrypter(const QString& inFile, const QString& outFile, const QString& password): inFile(inFile), outFile(outFile), password(password) {}
+
+    void processFile();
+    void run();
 };
 
 #endif /* FILECRYPTER_H_ */

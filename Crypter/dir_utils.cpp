@@ -122,7 +122,7 @@ void DirUtils::CheckAndCreateDirectory(const Fullpath& fullPath){
     for (vector_qstring_size_t i=1; i< fullPath.elements.size() - ignoreFileName; i++) {
         QString name = GetAbsolutePath(fullPath, static_cast<vector_qstring_size_t>(i + 1));  // +1 To keep compatibility with size
         if (MKDIR != 0){
-            qDebug() << "An error occured during creating the directory" << name;
+            // qDebug() << "An error occured during creating the directory" << name;
         }
     }
 }

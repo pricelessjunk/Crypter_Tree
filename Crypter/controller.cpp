@@ -1,11 +1,11 @@
 #include "controller.h"
 
+
 void Controller::process(const Mode& mode, const QString& password, const QString& root, const QString& deepLink){
     DirUtils dirUtils;
     qDebug() <<"Root folder: "<< root;
 
     PathCrypter path_crypter;
-    FileCrypter file_crypter;
     Fullpath fullpath = getFullPath(dirUtils, root, deepLink);
 
     std::vector<Fullpath> files = dirUtils.GetFiles(fullpath, mode);
@@ -30,15 +30,29 @@ void Controller::process(const Mode& mode, const QString& password, const QStrin
 
         // Creating the directory or file
         dirUtils.CheckAndCreateDirectory(processedPath_fp);
+
+        QThreadPool::globalInstance()->setMaxThreadCount(maxThreadCount);
         if(path_fp.isDir){
             // qDebug()<<"Created Dir: "<< dirUtils.GetAbsolutePath(processedPath_fp);
         }else{
             QString absProcessedPath_str = dirUtils.GetAbsolutePath(processedPath_fp);
             QString absPath_str = dirUtils.GetAbsolutePath(path_fp);
-            file_crypter.processFile(absPath_str.toLatin1().data(), absProcessedPath_str.toLatin1().data(), password);
-            // qDebug()<<"Created File: "<< absEncodedPath_str;
+
+            while ( QThreadPool::globalInstance()->activeThreadCount() == maxThreadCount){
+                QThread::msleep(50);
+            }
+
+            FileCrypter* file_crypter = new FileCrypter(absPath_str, absProcessedPath_str, password);
+            QThreadPool::globalInstance()->start(file_crypter);
         }
     }
+
+    while(QThreadPool::globalInstance()->activeThreadCount()!=0){
+         // qDebug() << "Threads still remaining " << QThreadPool::globalInstance()->activeThreadCount();
+        QThread::msleep(50);
+    }
+
+    qDebug() << "All threads completed successfully.";
 }
 
 Fullpath getFullPath(const DirUtils& dirUtils, const QString& root, const QString& deeperPath){

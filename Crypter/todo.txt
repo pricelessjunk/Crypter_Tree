@@ -1,6 +1,12 @@
+- Add minimize button
 - Fix bug for exeption list. Need some sort of way to share the runtimeconfig. Also rename to context. - Possible way to place the context in a namespace within the common.h
 - integrate status ui  ?? what was this now??
 
 - Create consle output window
 - Seperate encryption algorithm into another thread.
 - Create a progress bar
+
+
+bug
+-----
+search to decrypt an empty folder.
