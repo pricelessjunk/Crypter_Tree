@@ -31,8 +31,6 @@ ActivityPage::~ActivityPage()
 }
 
 int ActivityPage::load_paths(std::vector<Fullpath> paths, QString root){
-    ui->listWidget->clear();
-
     if(!dir_utils_ptr->DoesDirectoryExist(root)){
         return 1;
     }
@@ -50,8 +48,11 @@ int ActivityPage::load_paths(std::vector<Fullpath> paths, QString root){
 }
 
 int ActivityPage::load_translations(std::vector<Fullpath>& paths, QString& root){
+    if(!dir_utils_ptr->DoesDirectoryExist(root)){
+        return 1;
+    }
 
-    if(root.compare("")!=0){
+    if(root.compare("")!=0 && !paths.empty()){
         ui->listWidget_decoded->addItem(root);
     }
 
@@ -103,6 +104,7 @@ void ActivityPage::on_btnEncryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
+    ui->listWidget->clear();
     ui->listWidget_decoded->clear();
 
     int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
@@ -123,6 +125,7 @@ void ActivityPage::on_btnDecryptSearch_clicked()
 {
     showLoadingAnimation(true);
     QString cur_path_str = ui->searchBoxLineEdit->text();
+    ui->listWidget->clear();
     ui->listWidget_decoded->clear();
 
     std::vector<Fullpath> foundFiles = dir_utils_ptr->GetFiles(cur_path_str, Mode::Decrypt, SearchMode::DIR_ONLY);
