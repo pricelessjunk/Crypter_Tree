@@ -1,6 +1,7 @@
 - Add minimize button
+- Create a "Create Directory" button in the decrypt mode so that the new files can be added directly without decrypting the old files.
 - Fix bug for exeption list. Need some sort of way to share the runtimeconfig. Also rename to context. - Possible way to place the context in a namespace within the common.h
-- integrate status ui  ?? what was this now??
+
 
 - Create consle output window
 - Seperate encryption algorithm into another thread.
@@ -10,3 +11,5 @@
 bug
 -----
 
+- At the moment, if the root folder does not have a child folder, during search to encrypt, the search takes place is DIR_ONLY search mode and since it doesn't find a child directory, it returns nothing.\
+  Solution - A speacial check which says if the directory has children or not. If not, then the directory itself is returned. Take care during removal.

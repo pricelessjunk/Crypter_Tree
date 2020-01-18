@@ -180,6 +180,11 @@ void ActivityPage::on_deleteButton_clicked()
     QString selected = ui->listWidget->selectedItems().front()->text();
     QString selected_decoded_in_brackets = current_state == Mode::Decrypt? "(" + ui->listWidget_decoded->selectedItems().front()->text() + ")" : "";
 
+    if(selected == ui->searchBoxLineEdit->text()){
+        QMessageBox::critical(this, "Error", "Cannot delete root path");
+        return;
+    }
+
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Delete", "Delete " + selected + " ? " + selected_decoded_in_brackets, QMessageBox::Yes|QMessageBox::No);
     if (reply == QMessageBox::Yes) {
