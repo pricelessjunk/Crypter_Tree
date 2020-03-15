@@ -1,5 +1,5 @@
-#ifndef TESTTEXTENCRYPTION_H
-#define TESTTEXTENCRYPTION_H
+#ifndef TEST_TEXT_ENCRYPTION_H
+#define TEST_TEXT_ENCRYPTION_H
 
 #include <QtTest/QtTest>
 
@@ -12,8 +12,6 @@ class TestTextEncryption: public QObject
 private slots:
     void testTextEncryption();
     void testTextDecryption();
-//    void testEncrypt();
-//    void testDecrypt();
 };
 
-#endif // TESTTEXTENCRYPTION_H
+#endif // TEST_TEXT_ENCRYPTION_H

@@ -187,9 +187,9 @@
    <widget class="QPushButton" name="encryptDecryptButton">
     <property name="geometry">
      <rect>
-      <x>800</x>
+      <x>840</x>
       <y>450</y>
-      <width>111</width>
+      <width>71</width>
       <height>23</height>
      </rect>
     </property>
@@ -210,14 +210,30 @@
    <widget class="QPushButton" name="deleteButton">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>760</x>
       <y>450</y>
-      <width>111</width>
+      <width>71</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMakeFolder">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>450</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Make Folder</string>
     </property>
    </widget>
   </widget>

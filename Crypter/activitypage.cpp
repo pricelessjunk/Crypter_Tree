@@ -110,10 +110,7 @@ void ActivityPage::on_btnEncryptSearch_clicked()
     int ret_code = load_paths(dir_utils_ptr->GetFiles(cur_path_str, Mode::Encrypt, SearchMode::DIR_ONLY), cur_path_str);
 
     if(ret_code==0){
-        current_state = Mode::Encrypt;
-        ui->encryptDecryptButton->setText(ENCRYPT);
-        ui->listWidget_decoded->setVisible(false);
-        setIndicatorEncrypt(true);
+        preparePageEncrypt();
         setStatus(STATUS_LOADED);
     }else if(ret_code==1){
         setStatus(STATUS_NO_SUCH_DIRECTORY);
@@ -132,11 +129,7 @@ void ActivityPage::on_btnDecryptSearch_clicked()
     int ret_code = load_paths(foundFiles, cur_path_str);
 
     if(ret_code==0){
-        current_state = Mode::Decrypt;
-        load_translations(foundFiles, cur_path_str);
-        ui->encryptDecryptButton->setText(DECRYPT);
-        ui->listWidget_decoded->setVisible(true);
-        setIndicatorEncrypt(false);
+        preparePageDecrypt(foundFiles, cur_path_str);
         setStatus(STATUS_LOADED);
     }else if(ret_code==1){
         setStatus(STATUS_NO_SUCH_DIRECTORY);
@@ -153,6 +146,7 @@ void ActivityPage::setStatus(QString status){
 void ActivityPage::showLoadingAnimation(bool loading){
     ui->lblProcess->setVisible(loading);
 }
+
 
 void ActivityPage::loadRuntimes(QMap<QString,QString>& input){
     runtimeConfigs.swap(input);
@@ -217,4 +211,31 @@ void ActivityPage::on_btnBrowse_clicked()
                                                          | QFileDialog::DontResolveSymlinks);
 
     ui->searchBoxLineEdit->setText(pathName);
+}
+
+void ActivityPage::preparePageEncrypt()
+{
+    current_state = Mode::Encrypt;
+    ui->encryptDecryptButton->setText(ENCRYPT);
+    ui->listWidget_decoded->setVisible(false);
+    ui->btnMakeFolder->setEnabled(false);
+    setIndicatorEncrypt(true);
+}
+
+void ActivityPage::preparePageDecrypt(std::vector<Fullpath> foundFiles, QString cur_path_str)
+{
+    current_state = Mode::Decrypt;
+    load_translations(foundFiles, cur_path_str);
+    ui->encryptDecryptButton->setText(DECRYPT);
+    ui->listWidget_decoded->setVisible(true);
+    ui->btnMakeFolder->setEnabled(true);
+    setIndicatorEncrypt(false);
+}
+
+
+void ActivityPage::on_btnMakeFolder_clicked()
+{
+    QString root = ui->searchBoxLineEdit->text();
+    QString selected = ui->listWidget_decoded->selectedItems().front()->text();
+    dir_utils_ptr->CheckAndCreateDirectory(dir_utils_ptr->GetFullPathFolder(selected , root));
 }

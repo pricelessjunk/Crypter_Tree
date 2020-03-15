@@ -93,6 +93,18 @@ QString DirUtils::GetAbsolutePath(const Fullpath& path, vector_qstring_size_t in
     return output;
 }
 
+Fullpath DirUtils::GetFullPathFolder(const QString absPath, const QString root)
+{
+    Fullpath path = CreateRootFullPath(root);
+    QString partOtherThanRoot = absPath.right((absPath.length() - 1) - root.length());
+
+    QStringList splits = partOtherThanRoot.split(SEPERATOR);
+    path.elements.insert(path.elements.end(), splits.begin(), splits.end());
+
+    return path;
+}
+
+
 bool DirUtils::FilterFilesWithExtensions(const QString &mainStr) const{
     QStringRef extension(&mainStr, mainStr.length()-4, 4);
     return runtimeConfigs.value(KEY_EXCEPTION).contains(extension);

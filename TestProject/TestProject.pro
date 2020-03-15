@@ -14,10 +14,13 @@ CONFIG += c++11
 include(../Crypter/Crypter.pri)
 
 SOURCES += \
-    testtextencrption.cpp \
+    main_test.cpp \
+    test_fullpath_abspath_conv.cpp \
+    test_text_encryption.cpp \
 
 HEADERS += \
-    testtextencrption.h \
+    test_fullpath_abspath_conv.h \
+    test_text_encryption.h \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -50,6 +50,8 @@ private slots:
 
     void on_btnBrowse_clicked();
 
+    void on_btnMakeFolder_clicked();
+
 private:
     Ui::ActivityPage *ui;
 
@@ -58,6 +60,10 @@ private:
     int load_translations(std::vector<Fullpath>& paths, QString& root);
 
     void showLoadingAnimation(bool loading);
+
+    void preparePageEncrypt();
+
+    void preparePageDecrypt(std::vector<Fullpath> foundFiles, QString cur_path_str);
 
 };
 

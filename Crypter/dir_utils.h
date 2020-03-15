@@ -29,6 +29,7 @@ public:
     std::vector<Fullpath> GetFiles(Fullpath root_path_fp, Mode mode, SearchMode searchMode = ALL);
     QString GetCurrentWorkingDir();
     QString GetAbsolutePath(const Fullpath &path);
+    Fullpath GetFullPathFolder(const QString absPath, const QString root);
     Fullpath AddDeepLinkToFP(const Fullpath& base, const QString& name, const bool& isDir) const;
     Fullpath CreateRootFullPath(const QString& base) const;
     void CheckAndCreateDirectory(const Fullpath& name);
