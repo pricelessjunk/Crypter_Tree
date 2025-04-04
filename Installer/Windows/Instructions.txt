@@ -1,0 +1,10 @@
+1. Create an Environment Variable (User Variable) with the name 
+
+CRYPTER_CONFIG
+In Windows - C:\Users\fenris\AppData\Local\Crypter  
+In Linux - <home>/.config/crypter
+
+
+2. Copy the `crypter.cfg` file to the above mentioned location. This sets the password to 'koosi'.
+
+3. This becomes the home location

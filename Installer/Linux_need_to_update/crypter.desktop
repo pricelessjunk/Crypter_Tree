@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Crypter
+Comment=Crypt Em
+Exec=/usr/bin/crypter
+Terminal=false
+Type=Application
+
